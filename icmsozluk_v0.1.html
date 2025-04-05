@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İç Mimarlık Sözlüğü</title> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>İç Mimarlık Sözlüğü (Web Önizleme)</title> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -2273,6 +2273,7 @@ Sürüm: 1.0 (Web Önizleme)</i>
                 const backButtonFav = document.getElementById('back-button-fav');
                 const suggestLink = document.getElementById('suggest-link');
 
+
                 // --- Favori Yönetimi Fonksiyonları ---
                 const FAVORITES_KEY = 'termFavorites';
                 function getFavorites() { try { const favoritesJson = localStorage.getItem(FAVORITES_KEY); return favoritesJson ? JSON.parse(favoritesJson) : []; } catch (e) { console.error("Favoriler okunamadı:", e); return []; } }
@@ -2280,14 +2281,14 @@ Sürüm: 1.0 (Web Önizleme)</i>
                 function removeFavorite(termName) { try { let favorites = getFavorites(); favorites = favorites.filter(name => name !== termName); localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } catch (e) { console.error("Favori silinemedi:", e); } }
                 function isFavorite(termName) { try { return getFavorites().includes(termName); } catch (e) { return false; } }
 
-                // Vurgulama Fonksiyonu
-                function highlightText(text, query) { /* ... (Öncekiyle aynı) ... */ if (!query) { return document.createTextNode(text); } try { const lowerText = text.toLowerCase(); const lowerQuery = query.toLowerCase(); const fragment = document.createDocumentFragment(); let lastIndex = 0; let index = lowerText.indexOf(lowerQuery, lastIndex); if (index === -1) { fragment.appendChild(document.createTextNode(text)); return fragment; } while (index !== -1) { if (index > lastIndex) { fragment.appendChild(document.createTextNode(text.substring(lastIndex, index))); } const highlightSpan = document.createElement('span'); highlightSpan.className = 'highlight'; highlightSpan.textContent = text.substring(index, index + query.length); fragment.appendChild(highlightSpan); lastIndex = index + query.length; index = lowerText.indexOf(lowerQuery, lastIndex); } if (lastIndex < text.length) { fragment.appendChild(document.createTextNode(text.substring(lastIndex))); } return fragment; } catch (e) { console.error("Vurgulama hatası:", e); return document.createTextNode(text); } }
 
+                // Vurgulama Fonksiyonu
+                function highlightText(text, query) { /* ... (Aynı kalır) ... */ if (!query) { return document.createTextNode(text); } try { const lowerText = text.toLowerCase(); const lowerQuery = query.toLowerCase(); const fragment = document.createDocumentFragment(); let lastIndex = 0; let index = lowerText.indexOf(lowerQuery, lastIndex); if (index === -1) { fragment.appendChild(document.createTextNode(text)); return fragment; } while (index !== -1) { if (index > lastIndex) { fragment.appendChild(document.createTextNode(text.substring(lastIndex, index))); } const highlightSpan = document.createElement('span'); highlightSpan.className = 'highlight'; highlightSpan.textContent = text.substring(index, index + query.length); fragment.appendChild(highlightSpan); lastIndex = index + query.length; index = lowerText.indexOf(lowerQuery, lastIndex); } if (lastIndex < text.length) { fragment.appendChild(document.createTextNode(text.substring(lastIndex))); } return fragment; } catch (e) { console.error("Vurgulama hatası:", e); return document.createTextNode(text); } }
+
+                // --- DÜZENLENEN FONKSİYON ---
                 // Terimleri belirli bir div içinde gösteren fonksiyon
                 function displayTerms(targetDiv, termsToDisplay, currentQuery) {
-                    targetDiv.innerHTML = ''; // Hedef div'i temizle
-
-                    // Favori listesi boşsa gösterilecek mesajı başlangıçta gizle
+                    targetDiv.innerHTML = '';
                     if(targetDiv.id === 'favorite-term-list') favoritesEmptyMessage.style.display = 'none';
 
                     if (termsToDisplay && termsToDisplay.length > 0) {
@@ -2296,10 +2297,18 @@ Sürüm: 1.0 (Web Önizleme)</i>
                            try {
                                 const entryDiv = document.createElement('div');
                                 entryDiv.className = 'term-entry';
-                                const nameHeading = document.createElement('div');
-                                nameHeading.className = 'term-name';
-                                nameHeading.appendChild(highlightText(term.name, currentQuery));
 
+                                const nameHeading = document.createElement('div');
+                                nameHeading.className = 'term-name'; // Bu hala flex container
+
+                                // YENİ: Metin içeriği için bir span oluştur
+                                const textContentSpan = document.createElement('span');
+                                textContentSpan.style.flexGrow = "1"; // Esneyip alanı doldursun
+                                textContentSpan.style.marginRight = "8px"; // İkonla araya boşluk
+                                textContentSpan.appendChild(highlightText(term.name, currentQuery)); // Vurgulanmış metni BU span'e ekle
+                                nameHeading.appendChild(textContentSpan); // Metin span'ini başlığa ekle
+
+                                // Favori İkonunu Oluştur
                                 const favoriteIcon = document.createElement('span');
                                 favoriteIcon.className = 'favorite-icon';
                                 const isFav = isFavorite(term.name);
@@ -2325,8 +2334,9 @@ Sürüm: 1.0 (Web Önizleme)</i>
                                         displayFavoriteTerms();
                                     }
                                 });
-                                nameHeading.appendChild(favoriteIcon);
+                                nameHeading.appendChild(favoriteIcon); // Favori ikonunu başlığa (metin span'inden SONRA) ekle
 
+                                // Açıklama Paragrafı
                                 const descriptionParagraph = document.createElement('p');
                                 descriptionParagraph.className = 'term-description';
                                 descriptionParagraph.appendChild(highlightText(term.description, currentQuery));
@@ -2337,37 +2347,29 @@ Sürüm: 1.0 (Web Önizleme)</i>
                            } catch (e) { console.error("Terim gösterilirken hata:", term.name, e); }
                         });
                     } else { // Gösterilecek terim yoksa
-                         // Eğer hedef favori listesi ise, özel boş mesajını göster ve hedef div'i boş bırak
                          if(targetDiv.id === 'favorite-term-list') {
-                             targetDiv.innerHTML = ''; // listeyi boşalt
-                             favoritesEmptyMessage.style.display = 'block'; // Mesajı göster
-                         } else { // Ana liste için normal boş mesajı
+                             targetDiv.innerHTML = '';
+                             favoritesEmptyMessage.style.display = 'block';
+                         } else {
                              const message = currentQuery ? 'Aradığınız kriterlere uygun terim bulunamadı.' : 'Gösterilecek terim yok.';
                              targetDiv.innerHTML = `<div class="empty-message">${message}</div>`;
                          }
                     }
                 }
+                // --- DÜZENLENEN FONKSİYON SONU ---
+
 
                 // Favori Terimleri Göster Fonksiyonu
-                function displayFavoriteTerms() {
-                     try {
-                        const favoriteNames = getFavorites();
-                        const favoriteTerms = termsData.filter(term => favoriteNames.includes(term.name));
-                        displayTerms(favoriteTermListDiv, favoriteTerms, ''); // Sorgu boş
-                     } catch(e) {
-                         console.error("Favoriler gösterilirken hata:", e);
-                         favoriteTermListDiv.innerHTML = `<div class="empty-message">Favoriler yüklenirken bir hata oluştu.</div>`;
-                         favoritesEmptyMessage.style.display = 'none';
-                     }
-                }
+                function displayFavoriteTerms() { /* ... (Aynı kalır) ... */ try { const favoriteNames = getFavorites(); const favoriteTerms = termsData.filter(term => favoriteNames.includes(term.name)); displayTerms(favoriteTermListDiv, favoriteTerms, ''); } catch(e) { console.error("Favoriler gösterilirken hata:", e); favoriteTermListDiv.innerHTML = `<div class="empty-message">Favoriler yüklenirken bir hata oluştu.</div>`; favoritesEmptyMessage.style.display = 'none'; } }
 
                 // Arama input'u değiştiğinde
-                function handleSearchInput() { try { const query = searchInput.value.toLowerCase().trim(); clearSearchButton.style.display = query ? 'block' : 'none'; const filteredTerms = termsData.filter(term => term.name.toLowerCase().includes(query) || term.description.toLowerCase().includes(query) ); displayTerms(termListDiv, filteredTerms, query); } catch(e) { console.error("Arama sırasında hata:", e); termListDiv.innerHTML = `<div class="empty-message">Arama sırasında bir hata oluştu.</div>`; } }
+                function handleSearchInput() { /* ... (Aynı kalır) ... */ try { const query = searchInput.value.toLowerCase().trim(); clearSearchButton.style.display = query ? 'block' : 'none'; const filteredTerms = termsData.filter(term => term.name.toLowerCase().includes(query) || term.description.toLowerCase().includes(query) ); displayTerms(termListDiv, filteredTerms, query); } catch(e) { console.error("Arama sırasında hata:", e); termListDiv.innerHTML = `<div class="empty-message">Arama sırasında bir hata oluştu.</div>`; } }
 
                 // Bölümler arası geçiş fonksiyonları
-                function showMainContent() { aboutContent.style.display = 'none'; favoritesContent.style.display = 'none'; mainContent.style.display = 'block'; handleSearchInput(); }
-                function showAboutContent() { mainContent.style.display = 'none'; favoritesContent.style.display = 'none'; aboutContent.style.display = 'block'; }
-                function showFavoritesContent() { mainContent.style.display = 'none'; aboutContent.style.display = 'none'; favoritesContent.style.display = 'block'; displayFavoriteTerms(); }
+                function showMainContent() { /* ... */ aboutContent.style.display = 'none'; favoritesContent.style.display = 'none'; mainContent.style.display = 'block'; handleSearchInput(); }
+                function showAboutContent() { /* ... */ mainContent.style.display = 'none'; favoritesContent.style.display = 'none'; aboutContent.style.display = 'block'; }
+                function showFavoritesContent() { /* ... */ mainContent.style.display = 'none'; aboutContent.style.display = 'none'; favoritesContent.style.display = 'block'; displayFavoriteTerms(); }
+
 
                 // --- Event Listener'lar ---
                 if (aboutLink) aboutLink.addEventListener('click', (event) => { event.preventDefault(); showAboutContent(); });
@@ -2376,7 +2378,7 @@ Sürüm: 1.0 (Web Önizleme)</i>
                 if (backButtonFav) backButtonFav.addEventListener('click', showMainContent);
                 if (suggestLink) suggestLink.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const recipientEmail = "icmsozluk@gmail.com"; 
+                    const recipientEmail = "sizinepostaadresiniz@example.com"; // DEĞİŞTİRİN!
                     const emailSubject = "İç Mimarlık Sözlüğü - Terim Önerisi";
                     const emailBody = "Merhaba,\n\nSözlüğe eklenmesini önerdiğim terim:\n\n[Buraya Terimi Yazın]\n\nTeşekkürler.";
                     const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
