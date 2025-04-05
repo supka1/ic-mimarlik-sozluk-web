@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İç Mimarlık Sözlüğü (Web Önizleme)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Stil kodları */
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 0 auto; max-width: 800px; padding: 20px; background-color: #f9f9f9; color: #333; }
+        .term-entry { background-color: #fff; border: 1px solid #eee; border-radius: 8px; padding: 15px 20px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: box-shadow 0.2s ease-in-out; }
+        .term-entry:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .term-name { font-size: 1.25em; color: #212529; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .term-description { font-size: 1em; color: #343a40; }
+        .highlight { font-weight: bold; background-color: #FFF3CD; padding: 0 2px; border-radius: 2px;}
+        h1 { text-align: center; color: #778DA9; margin-bottom: 15px; }
+        .search-container { position: relative; margin-bottom: 25px; }
+        #search-input { width: 100%; padding: 12px 40px 12px 20px; border: 1px solid #ccc; border-radius: 25px; font-size: 1em; box-sizing: border-box; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+        #clear-search { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); border: none; background: none; font-size: 1.4em; color: #999; cursor: pointer; padding: 5px; display: none; }
+        .empty-message { text-align: center; color: #888; padding: 30px 20px; font-style: italic; border: 1px dashed #ddd; border-radius: 8px; background-color: #fff; margin-top: 20px;}
+        /* İçerik Bölümleri Stili */
+        #about-content, #favorites-content, #references-content {
+            display: none; /* Başlangıçta gizli */
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        /* Başlık Stilleri */
+        #about-content h2, #favorites-content h2, #references-content h2 {
+            text-align: center; color: #778DA9; margin-top: 0; margin-bottom: 20px;
+        }
+        /* Geri Butonu Stili */
+        .back-button { display: block; margin: 20px auto 0 auto; padding: 10px 20px; background-color: #778DA9;
+            color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;
+        }
+        /* Üst Linkler Stilleri */
+        #top-links { text-align: center; margin-bottom: 25px; }
+        .top-link { margin: 0 8px; color: #556; cursor: pointer; text-decoration: none; font-size: 0.9em; font-weight: bold; padding: 5px 0;} /* Font boyutu ayarlandı */
+        .top-link:hover { text-decoration: underline; }
+        /* Favori İkonu Stilleri */
+        .favorite-icon { cursor: pointer; font-size: 1.5em; margin-left: 10px; color: #ADB5BD; transition: color 0.2s ease-in-out; user-select: none; }
+        .favorite-icon.active { color: #FFC107; }
+        /* Kaynaklar Listesi Stili */
+        #references-text-content p { margin-bottom: 0; padding-left: 10px;}
+        #references-text-content i { font-size: 0.9em; color: #555; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+    <div id="main-content">
+        <h1>İç Mimarlık Sözlüğü</h1>
+
+        <div id="top-links">
+            <a href="#" id="favorites-link" class="top-link">Favorilerim</a>
+            <a href="#" id="about-link" class="top-link">Hakkında</a>
+            <a href="#" id="suggest-link" class="top-link">Terim Öner</a>
+            <a href="#" id="references-link" class="top-link">Kaynaklar</a> </div>
+
+        <div class="search-container" id="search-area">
+            <input type="text" id="search-input" placeholder="Terim veya açıklamada ara...">
+            <button id="clear-search" title="Aramayı Temizle">&times;</button>
+        </div>
+
+        <div id="term-list">
+            </div>
+    </div>
+    <div id="about-content">
+        <h2>Hakkında</h2>
+        <p>
+            <b>İç Mimarlık Sözlüğü'ne Hoş Geldiniz!</b><br/><br/>
+            
+
+Bu sayfa, Türkiye'deki değerli iç mimarlar, geleceğin tasarımcıları olan iç mimarlık öğrencileri ve bu yaratıcı alana gönül vermiş herkes için kapsamlı ve kolay erişilebilir bir Türkçe terminoloji kaynağı sunma hedefiyle geliştirilmiştir.
+
+Amacımız, mesleki dilimize hakimiyeti artırmak, öğrenme süreçlerini desteklemek ve tasarım dünyasında sağlam bir referans noktası oluşturmaktır.<br/><br/>
+
+Sözlüğümüzü sizlerin de katkılarıyla sürekli büyütmek ve zenginleştirmek istiyoruz. Eğer "İşte bu da olmalıydı!" dediğiniz bir terim varsa veya mevcut bir açıklamada iyileştirme öneriniz bulunuyorsa, lütfen "Terim Öner" seçeneği ile bizimle iletişime geçin. Geri bildirimleriniz, bu kaynağı hep birlikte daha değerli kılmamızı sağlayacaktır.<br/><br/>
+
+Uygulamamızı tercih ettiğiniz ve bu bilgi yolculuğunda bize katıldığınız için içtenlikle teşekkür ederiz.<br/><br/>
+
+Sürüm: 1.0 (Web Önizleme)</i>
+        </p>
+        <button id="back-button-about" class="back-button">Sözlüğe Geri Dön</button>
+    </div>
+
+    <div id="favorites-content">
+        <h2>Favorilerim</h2>
+        <div id="favorite-term-list"></div>
+        <div id="favorites-empty-message" class="empty-message" style="display: none;">
+            Henüz favori teriminiz yok.
+        </div>
+        <button id="back-button-fav" class="back-button">Sözlüğe Geri Dön</button>
+    </div>
+
+    <div id="references-content" style="display: none;">
+        <h2>Yararlanılan Kaynaklar</h2>
+        <div id="references-text-content">
+            <p>
+                 • Cam Örtü ile Tamamlanmış Ahşap Strüktür - Arkitera (Erişim: 5 Nisan 2025)<br/><i>https://www.arkitera.com/haber/cam-ortu-ile-tamamlanmis-ahsap-struktur/</i><br/><br/>
+                 • Yapı Elemanları Nelerdir? | İnşaat Terimleri - İnşaat Hesabı (Erişim: 5 Nisan 2025)<br/><i>https://insaathesabi.com/sozluk/kelime/yapi-elemanlari-nelerdir/</i><br/><br/>
+                 • Mimari Terim - Mimari Sözlük (Erişim: 5 Nisan 2025)<br/><i>https://mimariterim.com/</i><br/><br/>
+                 • İnşaatta Kullanılan Aletler | İNŞAAT KOÇUM (Erişim: 5 Nisan 2025)<br/><i>https://www.insaatkocum.com/insaatta-kullanilan-araclar/</i><br/><br/>
+                 • İş Makinası Çeşitleri ve Kullanım Alanları - Greenweight (Erişim: 5 Nisan 2025)<br/><i>https://greenweight.com.tr/is-makinasi-cesitleri-ve-kullanim-alanlari/</i><br/><br/>
+                 • Yapı Malzemeleri Nelerdir? Seçimi Nasıl Yapılır? | Uks Yapı (Erişim: 5 Nisan 2025)<br/><i>https://www.uksyapi.com/tr/blog/yapi-malzemeleri</i><br/><br/>
+                 • Yapı Malzemeleri ve Özellikleri - Mehmet Ceylan Yapı (Erişim: 5 Nisan 2025)<br/><i>https://www.mehmetceylanyapi.com.tr/yapi-malzemeleri-ve-ozellikleri/</i><br/><br/>
+                 • peyzaj mimarlığı terimler sözlüğü - TMMOB Peyzaj Mimarları Odası (Erişim: 2 Nisan 2025)<br/><i>https://www.peyzajmimoda.org.tr/yayinlar/242/peyzaj-mimarligi-terimler-sozlugu</i><br/><br/>
+                 • PEYZAJ MİMARLIĞI TERİMLERİ SÖZLÜĞÜ, MUZAFFER YÜCEL VE ARKADAŞLARI - Kitantik (Erişim: 2 Nisan 2025)<br/><i>https://www.kitantik.com/product/PEYZAJ-MIMARLIGI-TERIMLERI-SOZLUGU_0z8kgltjo1l3q8l1jhv</i><br/><br/>
+                 • PEYZAJ MİMARLIĞI TERİMLERİ SÖZLÜĞÜ - MUZAFFER YÜCEL-İLÇİN ASLANBOĞA - Nadir Kitap (Erişim: 2 Nisan 2025)<br/><i>https://www.nadirkitap.com/peyzaj-mimarligi-terimleri-sozlugu-muzaffer-yucel-ilcin-aslanboga-kitap29434290.html</i><br/><br/>
+                 • PEYZAJ MİMARLIĞI TERİMLERİ SÖZLÜĞÜ, MUZAFFER YÜCEL-İLÇİN ASLANBOĞA - Kitantik (Erişim: 2 Nisan 2025)<br/><i>https://www.kitantik.com/product/PEYZAJ-MIMARLIGI-TERIMLERI-SOZLUGU_0z8kgltj5vpeenz12q0</i><br/><br/>
+                 • İç Mimar Nedir, Nasıl Olunur? - Kariyer.net (Erişim: 4 Nisan 2025)<br/><i>https://www.kariyer.net/pozisyonlar/ic+mimar/nedir</i><br/><br/>
+                 • İç Mimarlık Bölümü Nedir? Mezunları Ne İş Yapar? - Kariyer.net (Erişim: 4 Nisan 2025)<br/><i>https://www.kariyer.net/bolumler/ic+mimarlik/nedir</i><br/><br/>
+                 • İç Mimar Nedir ? Ne iş Yapar - Nou İç Mimarlık (Erişim: 4 Nisan 2025)<br/><i>https://www.nouicmimarlik.com/ic-mimar-nedir-ne-is-yapar-p53</i><br/><br/>
+                 • İç Mimarlık Görev ve Tanımları - No34 Yapı Mimarlık (Erişim: 4 Nisan 2025)<br/><i>https://www.no34yapi.com/ic-mimarlik-gorev-ve-tanimlari/</i><br/><br/>
+                 • temel tasarım ilkeleri - Ankara Üniversitesi Açık Ders Malzemeleri (Erişim: 5 Nisan 2025)<br/><i>https://acikders.ankara.edu.tr/pluginfile.php/11488/mod_resource/content/2/Mimarl%C4%B1k%20Bilgisi%201.%20Hafta%20Tasar%C4%B1m%20%C4%B0lkeleri%20ve%20Mimarl%C4%B1k.pdf</i><br/><br/>
+                 • Tasarım Nedir? – Dalları İlkeleri Görselleştirilmesi Oluşturulması - Arkhe Sanat (Erişim: 5 Nisan 2025)<br/><i>https://www.arkhesanat.com/tasarim-nedir/</i><br/><br/>
+                 • sanatın elemanları ve tasarım ilkeleri - gökçe bozdoğan - Prezi (Erişim: 5 Nisan 2025)<br/><i>https://prezi.com/p/ytmzpvmywzli/sanatn-elemanlar-ve-tasarm-ilkeleri/</i><br/><br/>
+                 • İç Tasarım Temelleri ve 7 Temel İlke - Mimari Expert (Erişim: 5 Nisan 2025)<br/><i>https://www.mimariexpert.com/tr/blog/ic-tasarim-temelleri</i><br/><br/>
+                 • Tasarım İlkeleri Nelerdir? - Basyolla Blog (Erişim: 5 Nisan 2025)<br/><i>https://www.basyolla.com/blog/tasarim-ilkeleri-nelerdir-tasarimda-dikkat-edilmesi-gereken-noktalar/</i><br/><br/>
+                 • Temel Tasarım İlkeleri ve Tasarım Elemanları - Boğaziçi Enstitüsü (Erişim: 5 Nisan 2025)<br/><i>https://boenstitu.com/blog/temel-tasarim-ilkeleri-ve-tasarim-elemanlari</i><br/><br/>
+                 • İç Mekan Tasarımı için 3 Tasarım İlkesi ve 5 İpucu - Gizem Pakyürek (Erişim: 5 Nisan 2025)<br/><i>https://gizempakyurek.com/blog/ic-mekan-tasarimi-icin-3-tasarim-ilkesi-ve-5-ipucu</i><br/><br/>
+                 • Temel Tasarım İlkeleri - IIENSTITU (Erişim: 5 Nisan 2025)<br/><i>https://www.iienstitu.com/blog/temel-tasarim-ilkeleri</i><br/><br/>
+                 • Görsel tasarım öğeleri ve ilkeleri - Vikipedi (Erişim: 5 Nisan 2025)<br/><i>https://tr.wikipedia.org/wiki/G%C3%B6rsel_tasar%C4%B1m_%C3%B6%C4%9Feleri_ve_ilkeleri</i><br/><br/>
+                 • webdosya.csb.gov.tr (Ahşap Pencereler) (Erişim: 5 Nisan 2025)<br/><i>https://webdosya.csb.gov.tr/db/samsun/icerikler/ahsap-pencereler-20211220074511.pdf</i><br/><br/>
+                 • arbor.com.tr (Eski Eser Restorasyonları) (Erişim: 5 Nisan 2025)<br/><i>https://arbor.com.tr/wp-content/uploads/2021/02/Eski-Eser-Restorasyonlari-200506.pdf</i><br/><br/>
+                 • Elde rendeleme - MEGEP (Erişim: 5 Nisan 2025)<br/><i>https://www.megep.meb.gov.tr/mte_program_modul/moduller_pdf/Ah%C5%9Fap%20Kap%C4%B1%20%C3%87izimi.pdf</i><br/><br/>
+                 • Period - Ahşap Pencere ve Kapı Sistemleri - Arkitera (Erişim: 5 Nisan 2025)<br/><i>https://www.arkitera.com/tanitim/period-ahsap-pencere-ve-kapi-sistemleri/</i><br/><br/>
+                 • manisaciraklik.meb.k12.tr (AKÇ) (Erişim: 5 Nisan 2025)<br/><i>https://manisaciraklik.meb.k12.tr/meb_iys_dosyalar/45/01/182171/dosyalar/2020_12/17130837_AKC.pdf</i><br/><br/>
+                 • megep.meb.gov.tr (Ahşap Doğrama Çizimleri) (Erişim: 5 Nisan 2025)<br/><i>http://megep.meb.gov.tr/mte_program_modul/moduller_pdf/Ah%C5%9Fap%20Do%C4%9Frama%20%C3%87izimleri.pdf</i><br/><br/>
+                 • Dekorasyon İpuçları ve İç Kapı Uyumları - Artella Ahşap (Erişim: 5 Nisan 2025)<br/><i>https://www.artella.com.tr/dekorasyon-ipuclari-ve-ic-kapi-uyumlari.html</i><br/><br/>
+                 • Ahşap Lambiri Nedir? - Forestina (Erişim: 5 Nisan 2025)<br/><i>https://forestina.com.tr/ahsap-lambiri-nedir/</i><br/><br/>
+                 • Ahşap İç Kapı Modelleri ve Seçimi - Artella Ahşap Kapı (Erişim: 5 Nisan 2025)<br/><i>https://www.artella.com.tr/artella-blog-ahsap-ic-kapi-modelleri-ve-secimi.html</i><br/><br/>
+                 • MOBİLYA VE İÇ MEKÂN TASARIMI AHŞAP PENCERE - MEGEP (Erişim: 5 Nisan 2025)<br/><i>https://www.megep.meb.gov.tr/mte_program_modul/moduller_pdf/Ah%C5%9Fap%20Pencere%20%C3%87izimi.pdf</i><br/><br/>
+                 • Lambri Nedir? - Bellona (Erişim: 5 Nisan 2025)<br/><i>https://www.bellona.com.tr/blog/icerik/lambri-nedir</i><br/><br/>
+                 • avys.omu.edu.tr (Plan ve kesitte kapı ve pencere) (Erişim: 5 Nisan 2025)<br/><i>https://avys.omu.edu.tr/storage/app/public/mihriban.mikayilova/120617/14.12.2021.%20KONU%209.%20Plan%20ve%20kesitte%20kap%C4%B1%20ve%20pencere.pdf</i><br/><br/>
+                 • Lambiri Nedir ve Nerelerde Kullanılır? | Novawood (Erişim: 5 Nisan 2025)<br/><i>https://novawood.com/tr/lambiri-nedir-ve-nerelerde-kullanilir</i><br/><br/>
+                 • İç Mekan Kavramı, İç Mimaride Mekan Bileşenleri | NC (Erişim: 4 Nisan 2025)<br/><i>https://www.dunyaflor.com/ic-mekan-kavrami</i><br/><br/>
+                 • İÇ MEKÂN TASARIMI ve İÇ MİMARLIK - All Render (Erişim: 4 Nisan 2025)<br/><i>https://www.allrender.net/post/ic-mekan-tasarimi-ve-ic-mimarlik</i><br/><br/>
+                 • Mimarlıkta mekân tasarımı... - OMU AVYS (Erişim: 4 Nisan 2025)<br/><i>https://avys.omu.edu.tr/storage/app/public/hakan.saglam/145179/%C4%B0%C3%A7%20ve%20D%C4%B1%C5%9F%20Mekan.pdf</i><br/><br/>
+                 • İç Mimaride Mekân Tasarımı - Nou İç Mimarlık (Erişim: 4 Nisan 2025)<br/><i>https://www.nouicmimarlik.com/ic-mimaride-mekn-tasarimi-p66</i><br/><br/>
+                 • Kentsel İç Mekân - Mimarlık Dergisi (Erişim: 4 Nisan 2025)<br/><i>http://www.mimarlikdergisi.com/index.cfm?sayfa=mimarlik&DergiSayi=398&RecID=3710</i><br/><br/>
+                 • Sanat Akımları Nelerdir? - Tablohane (Erişim: 5 Nisan 2025)<br/><i>https://www.tablohane.com/blog/sanat-akimlari-nelerdir-gecmisten-gunumuze-bakis-1204</i><br/><br/>
+                 • Geçmişten Günümüze Sanat Akımları Nelerdir? - Sanat Akademi (Erişim: 5 Nisan 2025)<br/><i>https://sanatakademi.com.tr/sanat/sanat-akimlari</i><br/><br/>
+                 • Sanat Akımları | NAZMİ METİN (Erişim: 5 Nisan 2025)<br/><i>https://nazmimetin.wordpress.com/sanat/sanatsal-bilgi/sanat-akimlari/</i><br/><br/>
+                 • Bilmeniz Gereken 10 Mimari Üslup - Yağmur Proje (Erişim: 5 Nisan 2025)<br/><i>http://www.yagmurproje.com/bilmeniz-gereken-10-mimari-uslup-ve-belirleyici-ozellikleri/</i><br/><br/>
+                 • konu 8. mimaride üslub ve akımlar - OMU AVYS (Erişim: 5 Nisan 2025)<br/><i>https://avys.omu.edu.tr/storage/app/public/mihriban.mikayilova/126511/DERS%20NOTLARI%20KONU%208%20M%C4%B0MAR%C4%B0%20%C3%9CSLUP%20VE%20AKLMLARI%20PDF.pdf</i><br/><br/>
+                 • Örnekleriyle Sanat Tarihindeki Mimari Akım ve Üsluplar - Halkbank Kültür ve Yaşam (Erişim: 5 Nisan 2025)<br/><i>https://kulturveyasam.com/ornekleriyle-sanat-tarihindeki-mimari-akim-ve-usluplar/</i><br/><br/>
+                 • Tarihte ve Günümüzde Sanat Akımları - Superprof (Erişim: 5 Nisan 2025)<br/><i>https://www.superprof.com.tr/blog/sanat-akimlari-tarih-gunumuz/</i><br/><br/>
+                 • İç Mimarlık Tasarım ve Dekorasyon Stilleri - RADA Mobilya (Erişim: 5 Nisan 2025)<br/><i>https://radamobilya.com/tasarim-dekorasyon-stilleri/</i><br/><br/>
+                 • Geçmişten Günümüze Sanat Akımları - İva Sanat (Erişim: 5 Nisan 2025)<br/><i>https://ivasanat.com/blog/gecmisten-gunumuze-sanat-akimlari-bir-yolculuk-sanat/</i><br/><br/>
+                 • Mimari Akımlar ve Özellikleri - EMSAL.COM (Erişim: 5 Nisan 2025)<br/><i>https://emsal.com/mimari-akimlar-ve-ozellikleri/</i><br/><br/>
+                 • Sanat Akımları Nelerdir? - Arkhe Sanat Akademisi (Erişim: 5 Nisan 2025)<br/><i>https://www.arkhesanat.com/sanat-akimlari-nelerdir/</i><br/><br/>
+                 • İç Mimari Akımlar - Archidecors (Erişim: 5 Nisan 2025)<br/><i>https://archidecors.com/ic-mimari-akimlar-tarihsel-ve-modern-ic-tasarim-trendleri/</i><br/><br/>
+                 • Sanat akımları-Kronolojik sıralama - Joy Art İstanbul (Erişim: 5 Nisan 2025)<br/><i>https://www.necipyesiltepe.com/sanat-akimlari-kronolojik-siralama/</i><br/><br/>
+                 • Mimar / Nedir? Ne İş Yapar? Maaşı Nedir? - SUBÜ Sertifika (Erişim: 4 Nisan 2025)<br/><i>https://sertifika.subu.edu.tr/mimar-nedir-ne-is-yapar-maasi-nedir</i><br/><br/>
+                 • Mimar Nedir, Nasıl Olunur? - Kariyer.net (Erişim: 4 Nisan 2025)<br/><i>https://www.kariyer.net/pozisyonlar/mimar/nedir</i><br/><br/>
+                 • Mimar Nedir? - Mimarın Tersi (Erişim: 4 Nisan 2025)<br/><i>https://www.mimarintersi.com/mimar-nedir</i><br/><br/>
+                 • Mimar Nedir, Nasıl Olunur? - Eleman.net (Erişim: 4 Nisan 2025)<br/><i>https://www.eleman.net/meslek/mimar/nedir</i><br/><br/>
+                 • Mimar Nedir? Mimarlık Nedir? - IIENSTITU (Erişim: 4 Nisan 2025)<br/><i>https://www.iienstitu.com/blog/mimar-nedir-mimarlik-nedir</i><br/><br/>
+                 • Mimari & Teknik Çizim Malzemeleri - Sanat.com.tr (Erişim: 5 Nisan 2025)<br/><i>https://www.sanat.com.tr/mimari--teknik</i><br/><br/>
+                 • Teknik Çizim Malzemeleri - Anka Sanat (Erişim: 5 Nisan 2025)<br/><i>https://www.ankasanat.com/mimari-sablon</i><br/><br/>
+                 • acikders.ankara.edu.tr (Teknik Resim) (Erişim: 5 Nisan 2025)<br/><i>https://acikders.ankara.edu.tr/mod/resource/view.php?id=109970</i><br/><br/>
+                 • Ölçü ve Çizim Malzemeleri - Nezih (Erişim: 5 Nisan 2025)<br/><i>https://www.nezih.com.tr/olcu-ve-cizim-malzemeleri</i><br/><br/>
+                 • İç Mimari Tasarım Malzemeleri - Algedra Mimarlık (Erişim: 5 Nisan 2025)<br/><i>https://algedra.com.tr/tr/blog/ic-mimari-tasarim-malzemeleri</i><br/><br/>
+                 • Resim Yaparken Kullanılan Araç ve Gereçler - Arkhe Sanat (Erişim: 5 Nisan 2025)<br/><i>https://www.arkhesanat.com/resim-yaparken-kullanilan-arac-ve-gerecler/</i><br/><br/>
+                 • Teknik Çizim Gereçleri - Aka Kırtasiye (Erişim: 5 Nisan 2025)<br/><i>https://www.akakirtasiye.com.tr/kirtasiye/teknik-cizim-gerecleri/</i><br/><br/>
+                 • İç Mimari Tasarımda En Çok Kullanılan Malzemeler - FEINE Mimarlık (Erişim: 5 Nisan 2025)<br/><i>https://feine.com.tr/ic-mimari-tasarimda-en-cok-kullanilan-malzemeler/</i><br/><br/>
+                 • Lambiri Nedir? Uygulama Yerleri - Artstyle (Erişim: 5 Nisan 2025)<br/><i>http://artstyle.com.tr/blog/2012/09/lambiri-nedir/</i><br/><br/>
+                 • Lambri Hakkında Merak Edilenler - LSK Yapısal Ahşap (Erişim: 5 Nisan 2025)<br/><i>https://lsk.com.tr/lambri-hakkinda-merak-edilenler/</i><br/><br/>
+                 • Aydınlatma Terimleri - Modesco Aydınlatma (Erişim: 2 Nisan 2025)<br/><i>https://www.modesco.com.tr/makale/ayd%C4%B1nlatma-terimleri/</i><br/><br/>
+                 • Aydınlatma Teknik Terimleri - DoğanLed (Erişim: 2 Nisan 2025)<br/><i>https://www.doganled.com.tr/aydinlatma-teknik-terimleri/</i><br/><br/>
+                 • Aydınlatma Terimleri - Marketekno (Erişim: 2 Nisan 2025)<br/><i>https://marketekno.com/blog/aydinlatma-terimleri</i><br/><br/>
+                 • Işıklandırma Terimleri - Optimum Aydınlatma (Erişim: 2 Nisan 2025)<br/><i>https://www.optimumaydinlatma.com/index.php/isiklandirma-terimleri/</i><br/><br/>
+                 • Aydınlatma Terimleri - Licalux (Erişim: 2 Nisan 2025)<br/><i>https://www.licalux.com/aydinlatma-terimleri/</i><br/><br/>
+                 • MEKANİK TESİSAT - TMMOB Makina Mühendisleri Odası İzmir Şubesi (Erişim: 2 Nisan 2025)<br/><i>https://mmoizmir.org/wp-content/uploads/2016/03/mekaniktesisat1.pdf</i><br/><br/>
+                 • Isıtma Terminolojisi, Isıtma Terimleri - Tesisat.org (Erişim: 2 Nisan 2025)<br/><i>https://www.tesisat.org/isitma-terminolojisi-isitma-terimleri.html</i><br/><br/>
+                 • İklimlendirme, Havalandırma ve Soğutma Terminolojisi - Tesisat.org (Erişim: 2 Nisan 2025)<br/><i>https://www.tesisat.org/iklimlendirme-havalandirma-ve-sogutma-terminolojisi.html</i><br/><br/>
+                 • Mimari ve İnşaat Terimleri Sözlüğü / Detaylı İnşaat Sözlüğü - Fason Proje Çizim (Erişim: 2 Nisan 2025)<br/><i>https://fasonprojecizim.com/bilgi-mimari-ve-Insaat-terimleri-sozlugu--detayli-Insaat-sozlugu-78.html</i><br/><br/>
+                 • Elektrik Tesisatlarında Kullanılan Terimler - Sezgin ERTUĞRUL (Erişim: 2 Nisan 2025)<br/><i>https://sezginertugrul.com/elektrik-tesisatlarinda-kullanilan-terimler/</i><br/><br/>
+                 • Elektrik Tesisat Projeleri.pdf - MEGEP (Erişim: 2 Nisan 2025)<br/><i>https://megep.meb.gov.tr/mte_program_modul/moduller_pdf/Elektrik%20Tesisat%20Projeleri.pdf</i><br/><br/>
+                 • Mobilya ve Dekorasyon Sözlüğü - Bellona (Erişim: 2 Nisan 2025)<br/><i>https://www.bellona.com.tr/blog/icerik/mobilya-ve-dekorasyon-sozlugu-tasarim-dunyasinin-dili</i><br/><br/>
+                 • Mobilya Terimleri - Masko (Erişim: 2 Nisan 2025)<br/><i>https://www.masko.com.tr/icerik/kutuphane_detay/mobilya-terimleri</i><br/><br/>
+                 • Ahşap | Sözlük - HEMEL Boya (Erişim: 2 Nisan 2025)<br/><i>https://www.hemel.com.tr/ahsap-sozluk</i><br/><br/>
+                 • Mobilya terimleri sözlüğü - İşin Olsun (Erişim: 2 Nisan 2025)<br/><i>https://isinolsun.com/blog/mobilya-terimleri-sozlugu/</i><br/><br/>
+                 • Mobilya Sözlüğü - Bellona (Erişim: 2 Nisan 2025)<br/><i>https://www.bellona.com.tr/blog/kategori/mobilya-sozlugu</i>
+            </p>
+        </div>
+    <button id="back-button-ref" class="back-button">Sözlüğe Geri Dön</button>
+</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            try { // Genel Hata Yakalama Başlangıcı
+
+        // --- JSON VERİSİ DOĞRUDAN BURAYA GÖMÜLDÜ ---
+        const termsData = [
+          {
+            "name": "Koltuk",
+            "description": "Oturmak için tasarlanmış, genellikle sırt ve kol destekleri olan mobilya."
+          },
+          {
+            "name": "Masa",
+            "description": "Üzerine eşyaların konulabildiği veya yemek yemek, çalışmak gibi aktivitelerin gerçekleştirilebildiği, genellikle ayakları olan düz yüzeyli mobilya."
+          },
+          {
+            "name": "Sandalye",
+            "description": "Tek kişilik oturma elemanı, genellikle sırt desteği bulunur."
+          },
+          {
+            "name": "Yatak",
+            "description": "Uyku ihtiyacını karşılamak için tasarlanmış mobilya."
+          },
+          {
+            "name": "Dolap",
+            "description": "Eşyaları saklamak için kullanılan, kapaklı veya çekmeceli mobilya."
+          },
+          {
+            "name": "Baza",
+            "description": "Yatağın altında depolama alanı sağlayan, genellikle sandıklı veya çekmeceli yatak tabanı."
+          },
+          {
+            "name": "Karyola",
+            "description": "Yatağın üzerine yerleştirildiği, genellikle başlık ve ayakucu olan yatak çerçevesi."
+          },
+          {
+            "name": "Şifonyer",
+            "description": "Birden fazla çekmecesi olan, genellikle yatak odasında kullanılan giysi dolabı."
+          },
+          {
+            "name": "Ankastre dolap",
+            "description": "Duvara veya mekana özel olarak tasarlanıp monte edilen sabit dolap."
+          },
+          {
+            "name": "Ranza",
+            "description": "İki veya daha fazla yatağın üst üste yerleştirildiği, yerden tasarruf sağlayan yatak sistemi."
+          },
+          {
+            "name": "Komodin",
+            "description": "Yatağın yanında veya kolay ulaşılabilir bir noktada bulunan küçük sehpa veya dolap."
+          },
+          {
+            "name": "Dresuar",
+            "description": "Genellikle girişlerde veya koridorlarda kullanılan, üzerinde eşyaların sergilenebildiği veya depolanabildiği uzun ayaklı, çekmeceli ince masa."
+          },
+          {
+            "name": "Portmanto",
+            "description": "Girişlerde kullanılan, palto, manto gibi dış giysilerin asıldığı, bazen ayna ve dolap bölmeleri de içeren mobilya."
+          },
+          {
+            "name": "Ahşap",
+            "description": "Ağaçtan elde edilen doğal yapı ve mobilya malzemesi."
+          },
+          {
+            "name": "Metal",
+            "description": "Demir, alüminyum, çelik gibi elementlerden veya bunların alaşımlarından oluşan yapı ve mobilya malzemesi."
+          },
+          {
+            "name": "Cam",
+            "description": "Silisli kumun eritilmesiyle elde edilen saydam veya yarı saydam yapı ve mobilya malzemesi."
+          },
+          {
+            "name": "Plastik",
+            "description": "Çeşitli türleri bulunan, mobilya ve aksesuarlarda kullanılan sentetik bir malzemedir."
+          },
+          {
+            "name": "Pamuk",
+            "description": "Yumuşak ve nefes alabilen doğal bir liftir; döşemelik ve perdelerde kullanılır."
+          },
+          {
+            "name": "Kadife",
+            "description": "Yumuşak ve lüks dokulu bir kumaştır; döşemelik ve perdeliklerde kullanılır."
+          },
+          {
+            "name": "Keten",
+            "description": "Dayanıklı ve doğal dokulu bir liftir; perde ve döşemeliklerde tercih edilir."
+          },
+          {
+            "name": "Suni Deri",
+            "description": "Gerçek deriye benzeyen, maliyet etkin ve bakımı kolay sentetik bir malzemedir."
+          },
+          {
+            "name": "Ağaç işçiliği",
+            "description": "Mobilya yapımında ahşabın kesilmesi, oyulması, zımparalanması ve birleştirilmesi gibi süreçler."
+          },
+          {
+            "name": "Cila",
+            "description": "Mobilyanın yüzeyini korumak ve daha estetik bir görünüm kazandırmak için uygulanan ince bir kaplama türü."
+          },
+          {
+            "name": "Kaplama",
+            "description": "Genellikle daha ekonomik bir malzemenin üzerine ince bir ahşap veya başka malzeme tabakasının yapıştırılması."
+          },
+          {
+            "name": "Lake",
+            "description": "Ahşap, MDF veya sunta gibi malzemelerin üzerine uygulanan, parlak ve pürüzsüz bir yüzey sağlayan örtücü boya türü."
+          },
+          {
+            "name": "Emprenye",
+            "description": "Ahşabın dayanıklılığını artırmak, çürümeye ve böceklenmeye karşı korumak için uygulanan kimyasal işlem."
+          },
+          {
+            "name": "Demonte",
+            "description": "Parçalar halinde üretilen ve sonradan monte edilebilen mobilya."
+          },
+          {
+            "name": "Masif Ahşap",
+            "description": "Tek parça halindeki doğal ahşaptır; döşeme, mobilya ve panel kaplamalarında kullanılır."
+          },
+          {
+            "name": "Patina",
+            "description": "Mobilyanın zamanla ve kullanımla kazandığı doğal görünüm ve karakter."
+          },
+          {
+            "name": "Abajur",
+            "description": "Bir ışık kaynağının üzerine takılan, ışığı yönlendirmeye ve yumuşatmaya yarayan örtü."
+          },
+          {
+            "name": "Lümen",
+            "description": "Bir ışık kaynağından yayılan toplam ışık akısı birimi."
+          },
+          {
+            "name": "Lüks",
+            "description": "Bir yüzey üzerine düşen ışık şiddeti birimi."
+          },
+          {
+            "name": "Candela",
+            "description": "Işık şiddetinin birimi."
+          },
+          {
+            "name": "Renk Sıcaklığı",
+            "description": "Bir ışık kaynağının yaydığı ışığın renginin Kelvin (K) cinsinden ifadesi."
+          },
+          {
+            "name": "CRI (Renksel Geriverim İndeksi)",
+            "description": "Bir ışık kaynağının renkleri ne kadar doğru ve doğal yansıttığını gösteren 0 ile 100 arasında bir değer."
+          },
+          {
+            "name": "Kamaşma",
+            "description": "Yanlış ışık kaynağı seçimi veya yerleşimi sonucu oluşan aşırı parlaklık ve göz rahatsızlığı."
+          },
+          {
+            "name": "Kontrast",
+            "description": "Tasarımda zıtlıkların (renk, doku, şekil, boyut vb.) bir arada kullanılarak görsel ilgi ve vurgu yaratılmasıdır."
+          },
+          {
+            "name": "Gölge",
+            "description": "Bir nesnenin ışık kaynağına göre konumundan dolayı ışık almayan karanlık bölge."
+          },
+          {
+            "name": "Parke",
+            "description": "Genellikle ahşaptan yapılan, zemine döşenen kaplama malzemesi."
+          },
+          {
+            "name": "Laminat",
+            "description": "Sıkıştırılmış talaş üzerine reçine emdirilmiş kağıt baskıdan oluşan, dayanıklı zemin kaplama malzemesi."
+          },
+          {
+            "name": "Marley",
+            "description": "Polivinil klorit (PVC) ve asbestten yapılan, genellikle ıslak hacimlerde kullanılan termoplastik döşeme kaplama malzemesi."
+          },
+          {
+            "name": "Duvar kağıdı",
+            "description": "Farklı desen ve dokulara sahip dekoratif bir duvar kaplama malzemesidir."
+          },
+          {
+            "name": "Lambri",
+            "description": "Genellikle ahşap malzemeden yapılan, iç ve dış mekanlarda duvar veya tavan kaplaması olarak kullanılan dekoratif ve işlevsel üründür. Estetik görünümünün yanı sıra ses ve ısı yalıtımı da sağlar."
+          },
+          {
+            "name": "Döşeme kumaşı",
+            "description": "Mobilyaların yüzeyini kaplamak için kullanılan tekstil ürünü."
+          },
+          {
+            "name": "Asmolen döşeme",
+            "description": "Araları dolgu malzemesi (asmolen) ile doldurulmuş, dişli betonarme döşeme türü."
+          },
+          {
+            "name": "Kaset döşeme",
+            "description": "Her iki doğrultuda da nervürleri bulunan, yük taşıyacak şekilde tasarlanmış dişli döşeme türü."
+          },
+          {
+            "name": "Mantar döşeme",
+            "description": "Başlıklı kolonların taşıdığı, kirişsiz betonarme döşeme türü."
+          },
+          {
+            "name": "Antre",
+            "description": "Bir binanın veya dairenin giriş bölümü, hol."
+          },
+          {
+            "name": "Sofa",
+            "description": "Geleneksel Türk evlerinde odaların açıldığı geniş hol veya oturma odası. Modern kullanımda oturma alanı veya dinlenme köşesi anlamına gelebilir."
+          },
+          {
+            "name": "Salon",
+            "description": "Bir evin ana oturma ve yaşam alanı, genellikle misafirlerin ağırlandığı yer."
+          },
+          {
+            "name": "Yatak odası",
+            "description": "Uyku ve dinlenme için ayrılmış oda."
+          },
+          {
+            "name": "Asma kat",
+            "description": "Bir iç mekanda, genellikle ana katlar arasında yer alan, daha düşük tavan yüksekliğine sahip ara kat."
+          },
+          {
+            "name": "Balkon",
+            "description": "Binanın üst katlarında dışa doğru çıkıntı yapan, açık ve genellikle korkuluklu alan."
+          },
+          {
+            "name": "Cumba",
+            "description": "Geleneksel Türk mimarisinde binanın dışına doğru çıkıntı yapan pencereli bölüm."
+          },
+          {
+            "name": "Niş",
+            "description": "Duvar içinde oluşturulan, genellikle dekoratif amaçlı kullanılan oyuk."
+          },
+          {
+            "name": "Pervaz",
+            "description": "Kapı ve pencerelerin etrafındaki dekoratif çerçeve veya kenarlık."
+          },
+          {
+            "name": "Süpürgelik",
+            "description": "Bir iç mekanda duvarın alt kısmında bulunan, duvarı darbelerden ve kirden koruyan genellikle ahşap veya plastik şerit."
+          },
+          {
+            "name": "Pabuçluk",
+            "description": "Eski Türk evlerinde odaların girişinde kapı ile odanın yüksekçe döşemesi arasında kalan, ayakkabı çıkarılan yer."
+          },
+          {
+            "name": "Sirkülasyon",
+            "description": "Bir yapının içindeki mekanlar arasında insanların veya nesnelerin hareketi ve akışı."
+          },
+          {
+            "name": "Uyum",
+            "description": "İç tasarımda aynı alana ait parçaların bütünlük, denge ve ahenk içinde olması."
+          },
+          {
+            "name": "Odak Noktası",
+            "description": "Bir odanın dikkat çeken, vurgulanmak istenen en önemli özelliği veya elemanı."
+          },
+          {
+            "name": "Oran ve Ölçü",
+            "description": "Nesnelerin büyüklüğü ile mekan arasındaki uyumlu ilişkiyi ifade eder, görsel tutarlılık ve işlevsellik sağlar."
+          },
+          {
+            "name": "Karşıtlık",
+            "description": "İç tasarımda renkler, desenler, dokular veya formlar arasındaki zıtlık."
+          },
+          {
+            "name": "Vurgu",
+            "description": "Bir odada dikkat çeken, öne çıkan özel detaylar veya aksesuarlar."
+          },
+          {
+            "name": "Barok",
+            "description": "1600 ile 1750 yılları arasında Avrupa'da etkili olan Barok akımı, Rönesans dönemi klasik akımlarına tepki olarak doğmuştur. Portekizce düzensiz inci veya taş anlamına gelen 'barocco' kelimesinden türeyen bu akım, bir huşu duygusu yaratmak için kontrastı, hareketliliği, coşkulu detayı, derin renkleri ve ihtişamı kullanmıştır. Dramatik ve abartılı hareketleri vurgulayan Barok, modern sanatı, modern grafik tasarımı ve günümüzün iç tasarımını etkilemiştir. Rembrandt ve Caravaggio bu akımın önde gelen sanatçılarıdır."
+          },
+          {
+            "name": "Gotik",
+            "description": "12. yüzyıldan 16. yüzyıla kadar Avrupa'da hakim olan, yüksek ve görkemli yapılarla karakterize edilen mimari stil."
+          },
+          {
+            "name": "Avangard",
+            "description": "Geleneksel normlara meydan okuyan, yenilikçi ve deneysel yaklaşımları içeren iç tasarım stili."
+          },
+          {
+            "name": "Kolon",
+            "description": "Yapılarda düşey yükleri taşıyan, genellikle silindirik veya prizmatik biçimli yapı elemanı."
+          },
+          {
+            "name": "Kiriş",
+            "description": "Döşemelerden veya diğer yapı elemanlarından gelen yükleri kolonlara veya duvarlara aktaran yatay yapı elemanı."
+          },
+          {
+            "name": "Döşeme",
+            "description": "Yapılarda katları birbirinden ayıran ve üzerindeki yükleri taşıyan yatay yapı elemanıdır."
+          },
+          {
+            "name": "Çatı",
+            "description": "Yapıyı dış etkenlerden (yağmur, kar, rüzgar vb.) koruyan üst örtü sistemidir."
+          },
+          {
+            "name": "Temel",
+            "description": "Yapının tüm yükünü zemine güvenli bir şekilde aktaran, genellikle yer altında bulunan yapı elemanıdır."
+          },
+          {
+            "name": "Duvar",
+            "description": "Mekanları bölen, yapıyı çevreleyen ve bazı durumlarda yük taşıyan düşey yapı elemanıdır."
+          },
+          {
+            "name": "Perde duvar",
+            "description": "Yatay yüklere (örneğin deprem yükleri) karşı koyan, genellikle betonarme duvar."
+          },
+          {
+            "name": "İstinat duvarı",
+            "description": "Toprak veya diğer malzemelerin yanal basıncına karşı koymak için inşa edilen duvar."
+          },
+          {
+            "name": "Kalkan duvarı",
+            "description": "Beşik çatılarda merteklere dik doğrultudaki üçgen dış duvar."
+          },
+          {
+            "name": "Beşik çatı",
+            "description": "İki eğimli yüzeyi olan çatı tipi."
+          },
+          {
+            "name": "Kırma çatı",
+            "description": "Dört eğimli yüzeyi olan çatı tipi."
+          },
+          {
+            "name": "Pabuç",
+            "description": "Bir kolonun veya dikmenin taban bölümü, yükü zemine yaymaya yarayan genişletilmiş kısım."
+          },
+          {
+            "name": "Kazık temel",
+            "description": "Zeminin taşıma kapasitesinin düşük olduğu durumlarda kullanılan, zemine çakılarak veya beton dökülerek oluşturulan derin temel elemanı."
+          },
+          {
+            "name": "Beton",
+            "description": "Çimento, agrega (kum, çakıl vb.) ve suyun karışımından elde edilen sertleşmiş yapı malzemesi."
+          },
+          {
+            "name": "Tuğla",
+            "description": "Kilin pişirilmesiyle elde edilen, duvar yapımında kullanılan geleneksel yapı malzemesi."
+          },
+          {
+            "name": "Çimento",
+            "description": "Su ile karıştığında sertleşen, beton ve harç yapımında kullanılan bağlayıcı madde."
+          },
+          {
+            "name": "Çelik",
+            "description": "Demir ve karbonun alaşımı olan, yüksek mukavemetli yapı malzemesi."
+          },
+          {
+            "name": "Taş",
+            "description": "Doğal kayaçlardan elde edilen yapı malzemesi."
+          },
+          {
+            "name": "Betonarme",
+            "description": "İçine çelik donatı yerleştirilerek güçlendirilmiş beton."
+          },
+          {
+            "name": "Grobeton",
+            "description": "Düşük dozajlı, demirsiz veya az donatılı beton."
+          },
+          {
+            "name": "Mertek",
+            "description": "Ahşap çatılarda mahyadan oluklara kadar uzanıp örtüden gelen yükleri taşıyan ve aşıklara ileten uzunlamasına ahşap."
+          },
+          {
+            "name": "Lata",
+            "description": "Çatı kaplaması altında, merteklerin üzerine çakılan ince ahşap."
+          },
+          {
+            "name": "Kalas",
+            "description": "Kalın ve geniş ahşap malzeme."
+          },
+          {
+            "name": "Plan",
+            "description": "Bir iç mekanın üstten görünüşünü gösteren, mobilya ve diğer elemanların yerleşimini detaylandıran çizim."
+          },
+          {
+            "name": "Kesit",
+            "description": "Yapının düşey bir düzlemle kesildiği varsayılarak çizilen ve iç mekan detaylarını, kat yüksekliklerini gösteren teknik çizimdir."
+          },
+          {
+            "name": "Pafta",
+            "description": "Üzerine proje çizilen büyük boyutlu kağıt veya dijital çizim."
+          },
+          {
+            "name": "Parsel",
+            "description": "Belli bir amaç için ayrılıp sınırlandırılmış arazi parçası."
+          },
+          {
+            "name": "Arsa",
+            "description": "Üzerine yapı inşa edilecek olan boş arazi."
+          },
+          {
+            "name": "İmar durumu",
+            "description": "Bir arazinin imar planındaki kullanım şeklini ve yapılaşma koşullarını gösteren belge."
+          },
+          {
+            "name": "Hakediş",
+            "description": "Yapılan işlerin karşılığında yükleniciye ödenmesi gereken bedelin hesaplanması ve ödenmesi süreci."
+          },
+          {
+            "name": "İhale",
+            "description": "Bir işin veya malın en uygun koşullarda yaptırılması veya satın alınması için yapılan rekabetçi teklif alma süreci."
+          },
+          {
+            "name": "İklimlendirme",
+            "description": "Bir ortamın sıcaklık, nem, hava akımı ve temizlik gibi özelliklerinin kontrol edilmesi."
+          },
+          {
+            "name": "Havalandırma",
+            "description": "Bir ortamdaki kirli havanın dışarı atılması ve yerine temiz havanın verilmesi."
+          },
+          {
+            "name": "Isıtma",
+            "description": "Bir ortamın sıcaklığının istenilen seviyede tutulması."
+          },
+          {
+            "name": "Sıhhi tesisat",
+            "description": "Binalarda temiz suyun getirilmesi ve atık suyun uzaklaştırılması için kurulan sistem."
+          },
+          {
+            "name": "Kolon hattı",
+            "description": "Elektrik sayacından dağıtım panosuna kadar olan ana elektrik hattı."
+          },
+          {
+            "name": "Linye",
+            "description": "Dağıtım panosundan aydınlatma armatürlerine veya prizlere giden elektrik hattı."
+          },
+          {
+            "name": "Sorti",
+            "description": "Elektrik tesisatında lamba, priz, anahtar gibi elektrik tüketim araçlarının bağlandığı nokta."
+          },
+          {
+            "name": "Topraklama",
+            "description": "Elektrikli cihazların ve tesisatın gövdesinin toprakla elektriksel olarak bağlanması, güvenlik önlemi."
+          },
+          {
+            "name": "Konstrüktivizm",
+            "description": "20. yüzyılın başlarında Rusya'da ortaya çıkan, işlevselliği ve endüstriyel malzemeleri ön plana çıkaran mimari akım."
+          },
+          {
+            "name": "Agora",
+            "description": "Antik Yunan şehirlerinde halkın toplandığı ve çeşitli etkinliklerin düzenlendiği açık alan."
+          },
+          {
+            "name": "Stoa",
+            "description": "Antik Yunan mimarisinde sütunlu galeri veya revak."
+          },
+          {
+            "name": "Kripta",
+            "description": "Genellikle kiliselerde veya katedrallerde yer alan yeraltı mezar odası."
+          },
+          {
+            "name": "Açıklık",
+            "description": "Bir iç mekandaki boş alan, geçiş veya iki nokta arasındaki mesafe."
+          },
+          {
+            "name": "Cephe",
+            "description": "Bir iç mekanın belirli bir yönden görünüşü veya iç yüzeyi."
+          },
+          {
+            "name": "Kat",
+            "description": "Bir binanın farklı seviyelerinden her biri, iç mekanda farklı kullanım alanlarını barındırabilir."
+          },
+          {
+            "name": "Aderans",
+            "description": "Bir boya özelliğidir; kuru film tabakasının kabarma, ince katmanlar halinde soyulma veya çatlama olmadan yüzeylerde kalma yeteneğini tanımlar."
+          },
+          {
+            "name": "Agrega",
+            "description": "Beton ve harcın ana kısmını oluşturan inert malzemelerdir."
+          },
+          {
+            "name": "Ahşap Doğramacı",
+            "description": "Belirli bir süre içinde el aletleri, makine ve ekipman kullanarak her türlü sabit ve hareketli ahşap doğramanın imalatını, montajını ve onarımını bağımsız olarak yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Akrilik Esaslı Boya",
+            "description": "Bağlayıcısının çoğunluğu akrilik reçine olan su bazlı boyalardır."
+          },
+          {
+            "name": "Aks",
+            "description": "Eksen, mil. Yapılarda ve projelerde, bir elemanın merkezinden diğerinin merkezine olan ölçü/mesafedir."
+          },
+          {
+            "name": "Alçı Dekorasyoncu",
+            "description": "Belirli bir süre içinde alçı, alçıpan ve diğer alçı ürünlerini kullanarak alçı işleri, kartonpiyer, asma tavan, bölme duvar ve duvar kaplaması yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          // Alın Duvarı atlandı (Kalkan duvarı ile benzer)
+          {
+            "name": "Altyapı",
+            "description": "Su, elektrik, kanalizasyon ve yollar gibi tüm tesislerin ortak adıdır; enfrastrüktür."
+          },
+          {
+            "name": "Altyüklenici",
+            "description": "Ana yüklenici ile sözleşme yapan yüklenicidir."
+          },
+          {
+            "name": "Alüminyum Doğramacı",
+            "description": "Belirli bir süre içinde makine, ekipman ve el aletleri kullanarak alüminyum profillerden ve yardımcı malzemelerden doğrama, panjur, asma tavan, giydirme cephe ve çeşitli konstrüksiyonların imalat ve montajı ile ilgili işlemleri bağımsız olarak yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Ampatman",
+            "description": "Büyük boyutlu temellerde, yapı yükünün 45 derecelik yayılma açısına uygun olarak, malzeme tasarrufu sağlamak amacıyla temelin üst kısmında yapılan kademedir."
+          },
+          {
+            "name": "Ana Duvar",
+            "description": "Yığma yapıda taşıyıcı duvar, beden duvarı."
+          },
+          {
+            "name": "Ana Sözleşme",
+            "description": "Doğrudan mal sahibi ile yapılan sözleşmedir. Yapının bölünmesine bağlı olarak bu sözleşme bir veya daha fazla olabilir."
+          },
+          {
+            "name": "Ana Yüklenici",
+            "description": "Mal sahibi ile sözleşme yapan yüklenicidir."
+          },
+          {
+            "name": "Anıt",
+            "description": "1. Önemli bir olayı veya büyük bir kişiyi anmak için dikilen belirgin heykel veya yapıdır; abide. 2. Büyük tarihi ve sanatsal değere sahip yapıdır."
+          },
+          {
+            "name": "Anlaşma",
+            "description": "Yapı proje yöneticisi ile mal sahibi veya yüklenici ile mal sahibi arasındaki sözleşme hükümlerini içeren belgedir. Başka belgeleri de ifade edebilir."
+          },
+          {
+            "name": "Apartman",
+            "description": "1. Bir bina içinde, bir kişinin veya bir ailenin yaşaması için yeterince büyük, birkaç odadan oluşan dairedir. 2. Bu tür dairelere bölünmüş binadır."
+          },
+          {
+            "name": "Ara Küpeşte",
+            "description": "Bir korkulukta tirizlere paralel olan elemandır."
+          },
+          {
+            "name": "Arazi Maketi",
+            "description": "Geliştirilecek bir arazinin mevcut durumunu veya amaçlanan şeklini gösteren modeldir."
+          },
+          {
+            "name": "Arsa Çapı",
+            "description": "Kadastro haritasından alınan arazinin ölçekli örneğidir. Ölçeği, komşu parsel numaralarını, kuzey işaretini ve blok parsel numarasını içerir."
+          },
+          {
+            "name": "Arşiv Çizimleri",
+            "description": "Yapı tamamlandıktan sonra fiilen yapılan işi gösteren çizimlerdir (planlar)."
+          },
+          {
+            "name": "Asansör Montörü",
+            "description": "Belirli bir süre içinde her türlü asansörün montaj ve devreye alma işlemlerini bağımsız olarak yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Asıl Çizimler",
+            "description": "Bu konuda yapı proje yöneticisi ile mal sahibi arasında kararlaştırılan hizmetlerdir."
+          },
+          {
+            "name": "Aşık",
+            "description": "Çatılarda mertekleri veya örtüyü taşıyan yatay ağaçların her biridir; aşık."
+          },
+          {
+            "name": "Ataşman Defteri",
+            "description": "Kontrol teşkilatı tarafından yükleniciye verilen, imzalı, plansız ve projesiz işlere ait imalatlara ait kroki, bilgi ve hesaplar ile ağırlık ve ölçü kayıtlarının tutulması amacıyla kullanılan defterdir."
+          },
+          {
+            "name": "Atika Duvarı",
+            "description": "Bir çatının önündeki duvardır."
+          },
+          {
+            "name": "Avadanlık",
+            "description": "Marangoz, doğramacı, tesisatçı vb. inşaat işçilerinin kullandığı alet takımıdır."
+          },
+          {
+            "name": "Avlu",
+            "description": "Bir binanın veya bir grup binanın ortasında, duvarlarla çevrili kapalı alandır. Dış avluya \"harim\", iç avluya \"harem\" denir."
+          },
+          {
+            "name": "Ayrık Düzen",
+            "description": "Yapıların birbirine bitişik olmadan yerleştirildiği yapı düzenidir."
+          },
+          {
+            "name": "Ayvan (Eyvan)",
+            "description": "1. Eski evlerde, özellikle Güneydoğu Anadolu evlerinde, avluya bakan, önü açık ve zemini yüksek dikdörtgen planlı mekandır. Ayvanlar genellikle beşik tonozla örtülüdür ve ortasında küçük bir havuz bulunur. 2. Köşk."
+          },
+          {
+            "name": "Badana",
+            "description": "Temelde kireç ve suyun karıştırılmasıyla elde edilir. İç duvar dekorasyonunda kullanılır. Yıkamaya dayanıklı değildir."
+          },
+          {
+            "name": "Bakalit",
+            "description": "Kapı ve pencere kolları ile bazı aydınlatma armatürlerinde kullanılan sentetik bir reçinedir."
+          },
+          {
+            "name": "Banliyö",
+            "description": "1. Büyük bir şehrin yakınında bulunan ve onun yaşamına katılan yerleşim yeridir. 2. Büyük bir şehrin civarı, bölgesi, çevresi."
+          },
+          {
+            "name": "Baraka",
+            "description": "Temeli olmayan, ahşap, çinko veya sac gibi hafif malzemelerden yapılmış geçici yapıdır."
+          },
+          {
+            "name": "Barbakan",
+            "description": "İstinat duvarlarının arkasında biriken suyun tahliyesi için yapılan deliklerdir. Şaşırtmalı olarak, yatayda ve düşeyde 3 metre aralıklarla, doğal zemin seviyesinden 10 cm yukarıda yerleştirilirler."
+          },
+          {
+            "name": "Batardo",
+            "description": "Su kenarlarında veya su seviyesinin altında kazı yapmayı mümkün kılmak için uygulanan takviye işidir."
+          },
+          {
+            "name": "Beton Pompa Operatörü",
+            "description": "Belirli bir süre içinde mobil ve sabit beton pompa makinelerinin beton dökümü için hazırlanması, beton dökümü ve döküm sonrası bakım işlemlerini bağımsız olarak yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Biçim",
+            "description": "Beton sanatlarında belirli bir temanın plastik veya grafik ifadesidir; form."
+          },
+          {
+            "name": "Bina",
+            "description": "Yaşamak veya çeşitli eylem ve işlevleri yerine getirmek için inşa edilmiş yapıdır: ev, okul veya türbe bir binadır, köprü ise bir yapıdır. Her bina bir yapıdır, ancak her yapı bir bina değildir."
+          },
+          {
+            "name": "Bingi (Küresel Bingi)",
+            "description": "1. Sivri kemer kaburgaları arasındaki boşluğu dolduran küresel üçgen parçaların her biridir. 2. Bir kubbeyi taşıyan kemerler arasında bulunan ve kare plandan dairesel plana geçişi sağlayan küresel üçgen, pandantif."
+          },
+          {
+            "name": "Birçok Ana Sözleşme",
+            "description": "İşin orijinal ve belirtilen kısımları için çeşitli (ayrı) yüklenicilerle doğrudan mal sahibi tarafından yapılan sözleşmelerdir."
+          },
+          {
+            "name": "Birim Fiyat Listesi",
+            "description": "Her takvim yılı başında cari fiyatlar belirlendikten sonra, yapılardaki imalatların ve nakliyeye tabi malzemelerin yükleme-boşaltma ve istifleme analizleri, Büyük Fiyat Analizi ilkelerine göre hesaplanır ve Bayındırlık ve İskan Bakanlığı Yüksek Fen Kurulu tarafından Birim Fiyat Listesi olarak basılıp dağıtılır."
+          },
+          {
+            "name": "Birim Fiyat No",
+            "description": "Poz no olarak da adlandırılır. Cari fiyatları veya birim fiyatları tanımlamak için kullanılan bir kod numarasıdır."
+          },
+          {
+            "name": "Birim Fiyat Tarifleri",
+            "description": "Birim fiyat listesinde verilen imalatlardaki her poz numarası için kullanılan malzeme miktarlarını, yapım yöntem ve sırasını, uygulama şartlarını ve kapsamını, birim fiyat ödemesine nelerin dahil olduğunu ve her imalatın ölçü yöntemini açıklayan yıllık olarak basılan kitaptır."
+          },
+          {
+            "name": "Bitiş Tarihi",
+            "description": "Yapı sözleşmesindeki tüm şartların yerine getirildiği tarihtir."
+          },
+          {
+            "name": "Bolluk",
+            "description": "Programdaki bir grup işlemin toleransıdır (güvenlik marjı). Erken ve geç başlama ve bitiş tarihleri karşılaştırılarak bolluk hesaplanır."
+          },
+          {
+            "name": "Bölgesel Planlama (Bölge Planlaması)",
+            "description": "Bölge düzeyinde fiziksel planlamadır."
+          },
+          {
+            "name": "Büz",
+            "description": "Boru, menfez. Beton drenaj ve kanalizasyon borusu."
+          },
+          {
+            "name": "Cadde",
+            "description": "Bir şehir içindeki ana yoldur."
+          },
+          {
+            "name": "Ceza",
+            "description": "Genellikle sözleşmedeki bir yükümlülüğün yerine getirilmemesi durumunda öngörülen yaptırımdır."
+          },
+          {
+            "name": "Çap",
+            "description": "Bkz. Arsa Çapı (Arazi Çapı)."
+          },
+          {
+            "name": "Çardak",
+            "description": "1. Etrafına sarılmış ağaçlar veya çiçeklerle yapılmış kafesli gölgeliktir. 2. Birbirine geçmiş ağaç dallarından yapılmış gölgeliktir. 3. Sofa (Ankara yöresinde)."
+          },
+          {
+            "name": "Çerçeve Program",
+            "description": "Projenin ana unsurlarını, sürelerini ve sıralamalarını gösteren, üst yönetim seviyesi için hazırlanan özel bir programdır. Bu program, ağ diyagramı, kilometre taşı çizelgesi veya çubuk grafik şeklinde olabilir."
+          },
+          {
+            "name": "Çeşme",
+            "description": "Kamuya açık kullanım için düzenlenmiş bir su kaynağının aktığı yapıdır; çeşme."
+          },
+          {
+            "name": "Çıkma",
+            "description": "Bir binanın üst katlarından dışarıya doğru çıkıntı yapan kısımdır; cumbalı pencere, çıkıntı."
+          },
+          {
+            "name": "Çiftlik",
+            "description": "Her türlü evcil hayvanın yetiştirilmesine ve her türlü ürünün yetiştirilmesine uygun geniş bir tarım arazisidir; üzerinde çalışanlar için evleri de bulunur; çiftlik."
+          },
+          {
+            "name": "Çizimler",
+            "description": "İşin yürütülmesi için proje elemanlarının yerini, şeklini ve boyutlarını gösteren grafiklerdir; çizimler."
+          },
+          {
+            "name": "Çörten",
+            "description": "Kesme taş istinat duvarlarında uygulanan barbakanlara verilen addır."
+          },
+          {
+            "name": "Dal Döşeme",
+            "description": "Statik olarak iki yönde çalışan döşemedir."
+          },
+          {
+            "name": "Damper",
+            "description": "1. Kamyonlarda devrilir kasa, damper; 2. Havalandırma sistemlerinde hava ayarı yapılan kapaktır."
+          },
+          {
+            "name": "Dayk",
+            "description": "1. Su seddi, bent duvarı, mendirek; 2. Kesen damar. Yeryüzü kabuğunda dikey damar."
+          },
+          {
+            "name": "De Stijl",
+            "description": "Vilmos Huszar, Antonie Kok, Piet Mondrian, Jacobus Johannes Oud ve Theo van Doesburg'un De Stijl adlı dergiyi yayınlamak için bir araya geldiği sanatçı grubudur."
+          },
+          {
+            "name": "Değişen Koşullar",
+            "description": "Sözleşmelerin dayandığı koşulları değiştiren fiziksel veya diğer koşullardır."
+          },
+          {
+            "name": "Değişiklik Önerisi",
+            "description": "Proje yöneticisi tarafından maliyet ve zamanı etkileyen nedenlerle sözleşme belgelerinde yapılması önerilen değişikliklere ilişkin açıklamaların yazılı veya sözlü olarak bildirilmesidir."
+          },
+          {
+            "name": "Değişiklik Talimatı",
+            "description": "Sözleşmeye yapılan eklemeler, çıkarmalar veya değişiklikler ile sözleşen taraflar arasındaki yazılı anlaşmalar veya talimatlardır; \"sözleşme değişikliği\" olarak da adlandırılır."
+          },
+          {
+            "name": "Dekapaj",
+            "description": "Bir şantiyede veya doldurulacak bir alanda üst toprağın veya yumuşak toprağın sıyrılması veya açık ocak madenciliğinde cevherin üzerindeki toprağın kaldırılmasıdır."
+          },
+          {
+            "name": "Demeraj",
+            "description": "Başlama, harekete geçme. Bir elektrik makinesinin ilk çalıştırılması."
+          },
+          {
+            "name": "Demobilizasyon",
+            "description": "Sökme, geri taşıma. İşin tamamlanması nedeniyle bir şantiyenin sökülmesi, yardımcı tesislerin sökülerek geri gönderilmesidir."
+          },
+          {
+            "name": "Denizlik",
+            "description": "Pencerelerin tabanını oluşturur. Su geçirmez malzemelerden yapılmalıdır. Öne doğru eğim verilmesi suyun dışarı akmasını sağlarken, arka ve yan tarafların yükseltilmesi suyun içeri sızmasını önler. Uç kısmı duvar yüzeyinden çıkıntılıdır ve damlalıklara sahiptir; denizlik."
+          },
+          {
+            "name": "Derinlik Zammı",
+            "description": "Her türlü zeminde elle yapılan iki metreden sonraki derin kazılar için derinlik zammı verilir. Bu zam, kazı fiyatından ayrı olarak verilir. Makine ile yapılan derin kazılar için derinlik zammı verilmez."
+          },
+          {
+            "name": "Derivasyon",
+            "description": "Yön değiştirme, çevirme. Kuru çalışmak için bir derenin akış yönünün geçici olarak değiştirilmesi."
+          },
+          {
+            "name": "Dış Mekan (Kentsel Mekan)",
+            "description": "Sokaklarda, meydanlarda, parklarda, bahçelerde, kısacası insan yapımı yapılar arasında ve bunlarla sınırlı kalan alanlardır; dış mekan (kentsel mekan)."
+          },
+          {
+            "name": "Dikme",
+            "description": "1. Genellikle dikey bir destek direğidir. 2. Ahşap yapılarda pencere ve kapıların yanlarına dikilen direklerin her biridir. 3. Çatılarda ve aşıklara çivilenen çoğunlukla kare kesitli dikey olarak yerleştirilmiş ağaçların her biridir; payanda, dikme."
+          },
+          {
+            "name": "Diletasyon Derzi",
+            "description": "Zemin ve yapı yüklerinin yanı sıra elemanların farklı genleşmelerinin yapı üzerindeki etkilerini gidermek için yapılan derzlerdir; genleşme derzi."
+          },
+          {
+            "name": "Dofen",
+            "description": "Yağmur iniş borularının alt kısmına, omuz seviyesinde yerleştirilen, kavisli alt ucu olan dökme demir borudur; boruları darbe ve ezilmeye karşı korur."
+          },
+          {
+            "name": "Dolaysız Maliyetler",
+            "description": "Bu maliyetler, işçilik, malzeme, alet, ekipman, alt yükleniciler ve projenin şantiyede yapımı ile doğrudan ilgili tüm harcamaları içerir; doğrudan maliyetler."
+          },
+          {
+            "name": "Düzen",
+            "description": "1. Sanat eserlerinde elemanların dengeli kompozisyonu. 2. Antik Yunan mimarisinde Dor, İyon ve Korint stilleri için kullanılan kelime; düzen. 3. Düzenleme stili."
+          },
+          {
+            "name": "Eğik Mahya",
+            "description": "Yatay olmayan sırt, eğimli sırt. 2. Ramazan gecelerinde, iki minare arasına ipler gerilerek ve ışıklar veya ampuller dizilerek camilerde oluşturulan yazı veya resimler; ışıklı gösteri."
+          },
+          {
+            "name": "Ek Hizmetler",
+            "description": "Yapı proje yöneticisi ile mal sahibi arasındaki sözleşmede belirtilen temel hizmetlere ek olarak sağlanan hizmetlerdir; ek hizmetler."
+          },
+          {
+            "name": "Eksik İş",
+            "description": "Çizimler, şartnameler ve ilgili standartlar açısından hala eksik, yetersiz ve kötü yapılmış işlerdir; eksik iş, kontrol listesi öğeleri."
+          },
+          {
+            "name": "Eksikler Tutanağı (Listesi)",
+            "description": "Bu liste inşaatın sonuna doğru hazırlanır. Yüklenicinin eksik işlerini, miktar ve kalite açısından şartnamelere uymayan işlerini ve proje bitiminden önce düzeltilmesi gereken işlerini belirtir; kontrol listesi."
+          },
+          {
+            "name": "Emanet İş",
+            "description": "2886 sayılı Devlet İhale Kanunu'nun 81. maddesinde belirtilen işlerdir. Bu tür işlerde yüklenici yer almaz ve idare işi kendi imkanlarıyla veya alt yükleniciler aracılığıyla işi parçalara ayırarak yürütür; emanet iş."
+          },
+          {
+            "name": "Emay",
+            "description": "Mineral kökenli camlaşmış boyadır; emaye."
+          },
+          {
+            "name": "Enderun",
+            "description": "1. Geçmişte, önemli bir kişinin konağının iç kısmına verilen addır. 2. Sarayın harem bölümü. 3. Saraydan olanlara bilim ve sanat öğretilen okul."
+          },
+          {
+            "name": "Eskalasyon",
+            "description": "Yüksek enflasyon nedeniyle girdi fiyatlarındaki hızlı artışların sabit birim fiyatlarla yapılan ihalelerin gerçekleşmesini engellemesi nedeniyle uygulanan bir yöntemdir. Eskalasyon, fiyat farkı anlamında kullanılır."
+          },
+          {
+            "name": "Eskiz Evresi",
+            "description": "Geleneksel olarak, bu evre tasarım hizmetinin ilk adımıdır. Bu evrede tasarımcı, projenin gereksinimlerini belirler ve projenin boyutunu ve yapısını gösteren belge ve çizimlerden oluşan eskiz çalışmaları hazırlar; şematik tasarım evresi."
+          },
+          {
+            "name": "Estetik",
+            "description": "1. Güzelliği ve bunun insan zihni ve duyguları üzerindeki etkilerini konu edinen felsefe okuludur; estetik. 2. Güzellik duygusuyla ilgili; estetik."
+          },
+          {
+            "name": "Eşik",
+            "description": "1. Kapı açıklığının altında, kapının ayırdığı iki mekanın zeminlerinden biraz daha yüksek olan kısımdır; eşik. 2. Bu yükseltinin bulunduğu yer."
+          },
+          {
+            "name": "Ev",
+            "description": "Sadece bir ailenin yaşaması için uygun büyüklükte ve şekilde inşa edilmiş konuttur; ev."
+          },
+          {
+            "name": "Evreli İnşaat",
+            "description": "İnşaatın parçalar halinde, inşaatla veya tasarımla birlikte gerçekleştirilmesidir. Bunda, her örtüşen veya sonraki aşama veya eleman (parça) belirli bir kapsama sahiptir ve her biri ayrı bir proje olarak kabul edilir; aşamalı inşaat."
+          },
+          {
+            "name": "Figüre",
+            "description": "Temel ve alt temel tabakalarının oluşturulması sırasında yol kenarına düzgün ve muntazam bir şekilde yerleştirilmiş, yayılmaya hazır malzeme yığınıdır; stok yığını."
+          },
+          {
+            "name": "Fiyat Analizi",
+            "description": "İnşaatla ilgili birim maliyetlerin hesaplanması sürecidir. Bu süreçte işçilik, makine, araç, alet ve ekipman miktarı ve maliyeti belirlenir; maliyet analizi."
+          },
+          {
+            "name": "Fizibilite",
+            "description": "Projedeki istenen işlevi, performansı ve güvenilirliği en düşük \"yaşam döngüsü\" maliyetiyle sağlamak amacıyla proje veya operasyonel fonksiyonların sistematik ve yaratıcı analizlerini içeren özel bir maliyet kontrol yöntemidir; fizibilite çalışması."
+          },
+          {
+            "name": "Frontallik",
+            "description": "Dikey eksenellik; ön cepheye dönüklük."
+          },
+          {
+            "name": "Fronton",
+            "description": "Alınlık."
+          },
+          {
+            "name": "Fuaye",
+            "description": "Bir gösteri veya toplantı binasında, aralarda veya toplantılar arasında dinlenme salonu olarak kullanılan lobidir; fuaye."
+          },
+          {
+            "name": "Galeri",
+            "description": "1. Sanat eserlerinin sergilendiği salondur; sanat galerisi. 2. Kapalı geçit; uzun sofa, divanhane, koridor. 3. Bir tiyatro salonunun etrafında bulunan balkondur; galeri."
+          },
+          {
+            "name": "Garanti",
+            "description": "Bir projede bir tarafın, belirli bir süre için işlerinin belirlenen sorumluluğunu üstleneceğine dair verdiği güvencedir."
+          },
+          {
+            "name": "Geç Teslim Süresi",
+            "description": "Uzun teslim süreleri olan kalemlerin satın alınması ile teslim edilmesi arasındaki süredir; teslim süresi."
+          },
+          {
+            "name": "Geçici Kabul",
+            "description": "Bir yapının, tam olarak tamamlanmamış olsa bile, tasarımcı veya proje yöneticisi veya her ikisi tarafından belgelendiği üzere, mal sahibi tarafından amaçlanan amaca uygun olarak kullanılabileceği bir düzeye ulaştığı tarihtir; önemli ölçüde tamamlanma."
+          },
+          {
+            "name": "Geçici Teminat",
+            "description": "Bir sigorta şirketinin mal sahibine, yüklenicinin ihale belgelerinde belirtilen işi teklif fiyatı üzerinden yapma konusundaki sözleşme taahhüdünü yerine getirememesi durumunda, sigorta şirketinin mal sahibine garanti tutarını ödeyeceğine dair beyanıdır; teklif teminatı."
+          },
+          {
+            "name": "Geçiş Üslubu",
+            "description": "Bir üsluptan diğerine geçişte ortaya çıkan ve her ikisinin de izlerini taşıyan ara üsluptur; geçiş üslubu."
+          },
+          {
+            "name": "Genel Şartname Eki",
+            "description": "İhale ve/veya sözleşme belgelerinin bir parçası olan genel şartnameye yapılan eklemeler ve/veya değişikliklerdir; ek şartnameler."
+          },
+          {
+            "name": "Geometri",
+            "description": "Uzayı çizgiler, yüzeyler ve hacimler olarak ele alan ve şekillerin özelliklerini ve ölçümlerini gösteren matematik dalıdır; geometri."
+          },
+          {
+            "name": "Gönye Almak",
+            "description": "Pisagor teoreminin 3-4-5 kuralını kullanarak 90 derecelik dik açılar oluşturmaktır; gönye almak."
+          },
+          {
+            "name": "Görünürdeki En Düşük Teklifin Sahibi",
+            "description": "Teklif formunda veya sözleşmede belirtilen işin ilgili kısmı için en düşük teklifi veren kişidir; görünürdeki en düşük teklif sahibi."
+          },
+          {
+            "name": "Götürü Ücret",
+            "description": "Bu ücret belirli (sabit) bir miktardır ve işin yürütülmesi için yapılan tüm doğrudan ve dolaylı maliyetleri, genel giderleri ve gerçek karı içerir; götürü ücret."
+          },
+          {
+            "name": "Hafriyat Klası Tespiti",
+            "description": "Şartnamelerde belirtilen kurallar dahilinde zeminin sınıfının (tip ve derece) belirlenmesidir; zemin sınıflandırması."
+          },
+          {
+            "name": "Harim",
+            "description": "1. Osmanlı camilerinin etrafında, çevredeki evlerden ve sokaklardan ayıran duvarlarla çevrili dış avlusudur; haremlik. 2. Harem daireleri."
+          },
+          {
+            "name": "Harpuşta",
+            "description": "Açıkta kalan duvar üstlerinin don ve yağmurdan korunması için yapılan örtüye verilen addır. Kesme taş, beton veya mozaikten yapılır; harpuşta."
+          },
+          {
+            "name": "Havalimanı",
+            "description": "Havayolu taşımacılığı veya nakliyesi için gerekli ticari ve teknik tesisleri de içeren büyük bir havaalanıdır; havaalanı."
+          },
+          {
+            "name": "Havasız Spreyleme (Püskürtme)",
+            "description": "Boyanın yüksek basınçta bir nozuldan geçirilerek atomize edilmesi işlemidir. Çözücülerin buharlaşması nedeniyle boya önceden ısıtıldığında özellikle etkilidir; havasız püskürtme."
+          },
+          {
+            "name": "Havuz",
+            "description": "1. Bahçeleri sulamak veya süs amaçlı kullanılan, suyla dolu açık, sığ yerdir; havuz. 2. Gemilerin onarım için alındığı yer; havuz."
+          },
+          {
+            "name": "Hayat",
+            "description": "Köy ve kasaba evlerinde, avluya bakan, bir veya daha fazla yanı açık, üzeri örtülü verandadır. Ankara'da sergah, İzmir'de hanay, diğer bölgelerde divanhane veya tahta boş olarak bilinir; veranda, sundurma."
+          },
+          {
+            "name": "Hızlı Yol",
+            "description": "Bir tasarım işini, tüm tasarım tamamlanmadan önce inşaata başlanabilecek şekilde aşamalara ayırma sürecidir. Böylece inşaat aşaması ile tasarım aşaması (kısmen) örtüşür; hızlı yol inşaatı."
+          },
+          {
+            "name": "Hipodrom",
+            "description": "At yarışlarının yapıldığı alandır; hipodrom, yarış pisti."
+          },
+          {
+            "name": "Hisar",
+            "description": "Eskiden taştan yapılmış, kuleli ve yüksek duvarlı küçük kaledir; kale."
+          },
+          {
+            "name": "Historizm",
+            "description": "Tarihsel verileri ön planda tutarak tarihten esinlenmeyi ilke edinen bir mimari akımdır; historizm."
+          },
+          {
+            "name": "Hizmete Alma",
+            "description": "Bir tesisin çalıştırılması, ayarlanması ve belgelenmesi sürecidir; devreye alma."
+          },
+          {
+            "name": "Hol",
+            "description": "Sofa, salon."
+          },
+          {
+            "name": "Hurdi Döşeme",
+            "description": "Statik olarak tek doğrultuda çalışan döşemedir; tek yönlü döşeme."
+          },
+          {
+            "name": "Islah",
+            "description": "Bir bölgenin, tümüyle yenilenmeksizin yaşam koşullarının düzeltilmesidir; rehabilitasyon."
+          },
+          {
+            "name": "Işık",
+            "description": "Nesnelerin görülmesine ve renklerin ayırt edilmesine neden olan fiziksel enerjidir; ışık. Işık, şeffaf ve homojen bir ortamda düz bir çizgi boyunca yayılır."
+          },
+          {
+            "name": "Izgara",
+            "description": "Maden veya ahşap çubukları aralıklı sıralamakla meydana getirilen parmaklık veya kafestir; ızgara."
+          },
+          {
+            "name": "İç Mimar",
+            "description": "İçmimarlar, insan etkinlikleri için uygun ortamlar yaratır. Kavram geliştirme ve formu test etme sürecinde ekleme, yineleme ve kademeli ayarlamalar yapma yöntemlerini araç olarak kullanır. İçmimarlık pratiği, genellikle mevcut ortamlar üzerinde çalışmayı içerir; bu durumda uyarlanabilir yeniden kullanım ve mimari stratejiler hakkında bilgi, mevcut alanları yeniden tasarlamak için gereklidir. İçmimarlık projeleri aynı zamanda yeni binaların bir parçası olabilir; bu durumda, disiplinler arası bir ekiple çalışma becerisi önem taşır. İçmimarlıkta tasarım süreci, tasarım yoluyla eleştirel düşünme, yaratıcı süreç ve daha önce anlaşılmış olanları yeniden düşünmeye dayanır"
+          },
+          {
+            "name": "İhale Uyarısı",
+            "description": "Kişi ya da kuruluşa ihaleyi kazandığını bildiren belgedir; ihale bildirimi."
+          },
+          {
+            "name": "İhtiyati Haciz",
+            "description": "Bir yükümlülüğün yerine getirilmesini veya bir borcun ödenmesini sağlamak için bir mülk üzerine ipotek koymak, onu gözaltına almak veya üzerinde hak iddia etmektir; ihtiyati haciz."
+          },
+          {
+            "name": "İhzarat",
+            "description": "Malzemelerin gelecekteki kullanım için şantiyede uygun şekilde depolanmasıdır; malzeme tedariki ve depolaması."
+          },
+          {
+            "name": "İksa Duvarı",
+            "description": "Kazı şevlerini veya benzer bir amaç için desteklemek üzere inşa edilmiş bir yığma veya betonarme duvardır; istinat duvarı, iksa duvarı."
+          },
+          {
+            "name": "İletki",
+            "description": "Açıları ölçmek ve çizmek için kullanılan yarım daire veya tam daire şeklindeki araçtır."
+          },
+          {
+            "name": "İmar",
+            "description": "Geliştirme, inşaat."
+          },
+          {
+            "name": "İnşa",
+            "description": "Yapım, bina."
+          },
+          {
+            "name": "İnşa Edilebilirlik",
+            "description": "İhale, uygulama ve yorumlama aşamalarında kullanılan sözleşme belgelerinin tüm proje hedeflerine ulaşma açısından açık, tutarlı ve eksiksiz olması sonucu ortaya çıkan inşaat kolaylığıdır (özellik); inşa edilebilirlik."
+          },
+          {
+            "name": "İnşa Edilebilirlik İncelemesi",
+            "description": "Tüm proje hedeflerine ulaşmak amacıyla sözleşme belgelerinin açıklık, tutarlılık, inşaat kolaylığı ve eksiksizlik açısından değerlendirilmesi sürecidir; inşa edilebilirlik incelemesi."
+          },
+          {
+            "name": "İnşaat",
+            "description": "1. Yapı, yapı işleri. 2. Yapım: bina inşaatı."
+          },
+          {
+            "name": "İnşaat Alanı",
+            "description": "1. Bodrum ve çatı katları dahil, iskanı mümkün olan bütün katların, ışıklıklar çıktıktan sonraki alanlarının toplamıdır. 2. Şantiye."
+          },
+          {
+            "name": "İnşaat Bütçesi",
+            "description": "Genellikle planlama veya tasarım aşamasında proje için belirlenen toplam tutardır; inşaat bütçesi."
+          },
+          {
+            "name": "İnşaat İş Programı",
+            "description": "İşlemleri, sürelerini ve işlem sıralamalarını göstererek inşaat süresini ortaya koyan grafikler, tablolar, metinler veya diğer açıklamalardır; inşaat çizelgesi."
+          },
+          {
+            "name": "İnşaat İşletmeciliği",
+            "description": "Proje tasarımından gerçekleştirilmesine kadar bir inşaat programında zaman, maliyet ve kalite kontrolü amacıyla kullanılan profesyonel bir yönetim sürecidir; inşaat yönetimi."
+          },
+          {
+            "name": "İnşaat İşletmecisi",
+            "description": "İnşaat yönetimi hizmetleri sunma uzmanlığına ve kaynaklarına sahip kişi veya kuruluştur; inşaat yöneticisi."
+          },
+          {
+            "name": "İnşaat Maliyesi",
+            "description": "Bu maliyetler, inşaat sözleşme giderlerini, destek ve genel gider maliyetlerini, kullanılan işçilik, malzeme ve montaj harcamalarını içerir; inşaat finansmanı."
+          },
+          {
+            "name": "İnşaat Proje Yöneticisi Ücreti",
+            "description": "Yapılan hizmetler karşılığında sözleşmeye göre proje yöneticisine ödenen ücrettir; inşaat proje yöneticisi ücreti."
+          },
+          {
+            "name": "İskan",
+            "description": "1. Yurtlandırma, yerleştirme. 2. Yurtlanma, yerleşme; oturma."
+          },
+          {
+            "name": "İskan Sınırı",
+            "description": "İmar sınırı içerisinde yapı yapma izni verilen bölgeler ile izin verilmeyen bölgeleri ayıran sınırdır; oturma sınırı."
+          },
+          {
+            "name": "İstasyon",
+            "description": "1. Herhangi bir ihtiyacı karşılamak için durulan yer (tren istasyonu, benzin istasyonu). 2. Araştırma kurumu (deney istasyonu)."
+          },
+          {
+            "name": "İstinat",
+            "description": "Dayanma, yaslanma; tutma."
+          },
+          {
+            "name": "İş",
+            "description": "Sözleşme evrakına göre işçi, malzeme ve ekipman gerektiren her türlü inşaattır; iş."
+          },
+          {
+            "name": "İşe Başlama Emri",
+            "description": "Bir kişi veya kuruluşa bir projede sözleşmesi ile ilgili olarak işe başlama yetkisi veren belge ve/veya andır; işe başlama bildirimi."
+          },
+          {
+            "name": "İşin Çapı",
+            "description": "Proje veya sözleşmedeki tüm gereksinimlerin tanımıdır; işin kapsamı."
+          },
+          {
+            "name": "İşin Çapındaki Değişiklikler",
+            "description": "Tasarım ve inşaat sürecinde işin kapsamını artıran veya azaltan değişikliklerdir; işin kapsamındaki değişiklikler."
+          },
+          {
+            "name": "İşletmeye Geçiş",
+            "description": "Sistem çalışmaya ve kontrol aşamasına geçtiği, mal sahibi tesise yerleşmeden önce ve mal sahibi tarafından atanan işletme ve bakım personelinin kontrolü ele geçirdiği dönemdir; işletmeye devir."
+          },
+          {
+            "name": "İtibari Kot",
+            "description": "Bir projenin yüksekliklerini verirken başlangıç yüksekliği olarak seçilen değişmez bir noktanın yüksekliğidir. Bu yükseklik herhangi bir seçilen numara ile gösterilir ve diğer yükseklikler buna göre düzenlenir; referans kotu."
+          },
+          {
+            "name": "İzolasyon",
+            "description": "1. Yalıtım, izolasyon. 2. Geçirimsizlik, sızdırmazlık, yalıtım; yalıtım."
+          },
+          {
+            "name": "Jeodezi",
+            "description": "Yeryüzünün tamamının veya bir kısmının alanını veya mesafelerini ölçme bilimidir; jeodezi."
+          },
+          {
+            "name": "Jeoloji",
+            "description": "Jeoloji, yer bilimi."
+          },
+          {
+            "name": "Jips",
+            "description": "Pişirilip öğütülerek alçı elde edilen kalsiyum sülfat toprak katmanıdır; alçı taşı."
+          },
+          {
+            "name": "Jipsoplasti",
+            "description": "Alçıdan kabartma süsler yapma sanatıdır; alçı sanatı."
+          },
+          {
+            "name": "Kabartma",
+            "description": "Kil, alçı, taş gibi işlenebilir gereçleri alçaklı yüksekli yüzeyler halinde biçimlendirerek meydana getirilmiş yapıt, rölyef."
+          },
+          {
+            "name": "Kaide",
+            "description": "Altlık, ayaklık."
+          },
+          {
+            "name": "Kalan Maliyet Projeksiyonu",
+            "description": "Bir projede belirli bir zamandan işin sonuna kadar yapılması beklenen maliyettir. Bu maliyet, o tarihe kadar yapılan toplam maliyet ile planlanan toplam maliyet arasındaki farktır; tamamlanacak maliyet."
+          },
+          {
+            "name": "Kale",
+            "description": "Eskiden, halkın ve askerlerin sığınması ve düşmana karşı direnmesi için taştan yapılmış, yüksek ve kalın duvarlı, kuleleri, burçları ve mazgalları olan büyük yapıdır; kale, hisar."
+          },
+          {
+            "name": "Kalite",
+            "description": "Projenin veya onu oluşturan elemanların çizimler, şartnameler ve ilgili standartlar açısından mal sahibinin isteklerine, hedeflerine ve beklentilerine ne ölçüde uygun olduğudur; kalite."
+          },
+          {
+            "name": "Kalite Yönetimi",
+            "description": "Kaliteyi sağlamak için kullanılan kaynakların ve süreçlerin koordinasyonu ve yönlendirilmesinde kullanılan sistematik prosedürlerin ve yaklaşımların planlanması, organize edilmesi, uygulanması ve belgelenmesidir; kalite yönetimi."
+          },
+          {
+            "name": "Kamulaştırmak",
+            "description": "Bir şeyi sahibinden alıp kamu malı yapmak, kamu yararı için istimlak etmek; istimlak etmek."
+          },
+          {
+            "name": "Kanalizasyon Mazgalı",
+            "description": "Yağmur suyunun toplandığı sokaklardaki bir drenajın ağzıdır; kanalizasyon ızgarası."
+          },
+          {
+            "name": "Kanivo",
+            "description": "Yol yüzeyine düşen yağmur suyunun bordür kenarında toplandığı ve yol boyunca aktığı yerdir; oluk."
+          },
+          {
+            "name": "Kapalıçarşı",
+            "description": "Eski üzeri örtülü çarşı yapılarına verilen addır; kapalı pazar."
+          },
+          {
+            "name": "Karabodos Hatılı",
+            "description": "Marangozlukta kullanılan 8x28 cm kesitli ağaçtır."
+          },
+          {
+            "name": "Kargalık",
+            "description": "Beşik çatıda mertekler arasında kalan boşluklara veya duvar bölümlerine verilen addır."
+          },
+          {
+            "name": "Karne",
+            "description": "Bir ihaleye katılma yeterlilik belgesine verilen addır. İhale komisyonuna sunulmak üzere resmi makamlarca hazırlanır ve sadece verildiği belirli iş için geçerlidir; ihale yeterlilik belgesi."
+          },
+          {
+            "name": "Karşılaştırmalı Keşif",
+            "description": "Bir tasarım bileşeninin bir alternatifle değiştirilmesi açısından karşılıklı maliyetleri ve riskleri ortaya koyan bir analizdir. Bu analiz hem parasal hem de işlevsel değerler açısından yapılır; değer mühendisliği analizi."
+          },
+          {
+            "name": "Kasr (Kasır)",
+            "description": "Müstahkem bir hükümdar sarayı, şato veya büyük konaktır; saray, konak."
+          },
+          {
+            "name": "Katılma-Yeterlik Belgesi Alanların Listesi",
+            "description": "Rekabetçi fiyatlar verme ön yeterliliğine sahip olduğu belirlenen yüklenicilerin listesidir; ön yeterlilik almış istekliler listesi."
+          },
+          {
+            "name": "Katrak",
+            "description": "Çok sayıda testeresi olan bir tomruk biçme/taş kesme makinesidir; şerit testere."
+          },
+          {
+            "name": "Kalite Dönemi",
+            "description": "Kişiler, sistemler, malzemeler, belgeler, teknikler ve işçilik dahil olmak üzere tüm proje elemanlarının plan, şartname ve ilgili standartlara uygun olup olmadığını belirlemek için yapılan sürekli denetimler, kontroller, belgeleme ve testlerdir; kalite güvence dönemi."
+          },
+          {
+            "name": "Kemer",
+            "description": "1. Bir açıklığı kapatmak için iki sütun veya destek üzerine oturan, uçları kemer şeklinde, ahşap, metal veya yığma malzemeden yapılmış yapısal parçadır. 2. Kemer şeklinde çerçeve; kemer."
+          },
+          {
+            "name": "Kent Planlaması",
+            "description": "Belediye düzeyinde fiziksel planlamadır; şehir planlaması, kent planlaması."
+          },
+          {
+            "name": "Kervansaray",
+            "description": "Geçmişte, kervanların gece konaklaması için ana yollar üzerinde inşa edilmiş büyük handır; kervansaray, han."
+          },
+          {
+            "name": "Kesin Teminat",
+            "description": "Bir sigortacının sigortalı mal sahibine veya yükleniciye, sözleşmedeki yükümlülüklerin yerine getirilmemesi durumunda, sigortacının garanti tutarını onlara ödeyeceğine dair beyanıdır; performans teminatı."
+          },
+          {
+            "name": "Kesin Teminat Poliçesi",
+            "description": "İlgili (sigorta) kuruluşunun, geçici ve kesin teminat, gündelik ve malzeme ödeme garantilerinin ilk (ana) yüklenici tarafından sigortalıya (mal sahibi veya yüklenici) ödenmemesi veya mali zorluk yaşaması durumunda, poliçedeki tutarı onlara ödeyeceğine dair beyanıdır; performans teminatı poliçesi."
+          },
+          {
+            "name": "Keson",
+            "description": "Bir temel türüdür. Sağlam zemin derin olduğunda, daha geniş ve güçlü bir temel oluşturmak için zeminde içi boş olarak inşa edilir ve ağırlığı kullanılarak istenilen derinliğe indirilir; keson."
+          },
+          {
+            "name": "Kalite güvencesi",
+            "description": "Kalite kontrol prosedürlerinin fiilen kullanıldığından emin olmak için planlı ve sistematik yöntemlerin kullanılmasıdır; kalite güvencesi."
+          },
+          {
+            "name": "Kıvam (Viskozite)",
+            "description": "Boyanın akmaya karşı direncidir; kıvam (viskozite)."
+          },
+          {
+            "name": "Klasman",
+            "description": "Kazı işlerinde, zemin türlerine göre parçalara ayrılması ve miktar açısından yüzde oranlarının belirlenmesidir; zemin sınıflandırması."
+          },
+          {
+            "name": "Konak",
+            "description": "Büyük ve görkemli evdir; konak."
+          },
+          {
+            "name": "Konik",
+            "description": "1. Koni şeklinde veya koni ile ilgili. 2. Tabanı dairesel olan bir koninin bir düzlemle kesilmesiyle elde edilen çeşitli kesit eğrilerine verilen ortak addır; konik."
+          },
+          {
+            "name": "Konkasör",
+            "description": "İri taşların ihtiyaca göre daha küçük parçalar halinde kırılmasını sağlayan bir inşaat makinesidir; kırıcı."
+          },
+          {
+            "name": "Konstrüksiyon",
+            "description": "1. Yapı, inşaat. 2. Bir çerçeve içinde yan yana dizilen veya bir ızgara meydana getiren ağaç çıtaların veya karton peteğin iki yüzüne kontrplak veya suni tahta levhası yapıştırılarak yapılmış (tabla); konstrüksiyon."
+          },
+          {
+            "name": "Konut",
+            "description": "Bir veya daha çok insanın ikamet ettiği yerdir; ev, mesken, ikametgah."
+          },
+          {
+            "name": "Korkuluk",
+            "description": "Köprü, merdiven, balkon gibi düşmek tehlikesi olan yerlerin kenarlarına dikilen alçak duvar veya parmaklıktır; korkuluk."
+          },
+          {
+            "name": "Kot",
+            "description": "1. Bir noktanın, esas olarak alınan yatay düzlemden yüksekliği ve bu yüksekliği gösteren rakamdır; yükseklik, seviye. 2. Projelerde boyutları göstermek için ölçü çizgilerinin üzerine yazılan rakamdır; ölçü rakamı."
+          },
+          {
+            "name": "Kot Çizgisi",
+            "description": "Ölçü çizgisi."
+          },
+          {
+            "name": "Köşk",
+            "description": "1. Çoğunlukla yazın kullanılan, açık bir yerde, bahçede inşa edilmiş süslü evdir; köşk, villa. 2. Cihannüma."
+          },
+          {
+            "name": "Krampon",
+            "description": "Kenet, ağır ahşap inşaatta öğeleri birbirine bağlamada kullanılan iki ucu kıvrık ve sivri demir parçadır; krampon."
+          },
+          {
+            "name": "Kreynler",
+            "description": "Yükün düşey ve yatay olarak taşınmasını sağlayan inşaat makineleridir. Sabit, mobil, kule ve kablolu vinçler vardır; vinçler."
+          },
+          {
+            "name": "Kritik Yol Metodu",
+            "description": "Bir projenin tamamlanması için gerekli işlemlerin sırasını, süresini ve aralarındaki ilişkileri gösteren, projenin planlanması ve kontrolü için geçerli tüm bilgileri tek bir planda toplayan bir yönetim aracıdır (teknik); kritik yol metodu (CPM)."
+          },
+          {
+            "name": "Kubbe",
+            "description": "Yarım küre veya yuvarlak şeklinde, kemerin tepe noktasından inen dikey çizgi etrafında dönmesiyle oluşan, kubbe şeklinde çatıdır. Kubbeler kare, çokgen veya dairesel planları örtmek için kullanılmıştır; kubbe."
+          },
+          {
+            "name": "Kule",
+            "description": "1. Uzun ve çoğunlukla silindirik yapıdır; kule. 2. Burç. 3. Osmanlılarda, çiftliklerde veya yazlık konutlarda beylerin savunulabilir konaklarına verilen addır; kule."
+          },
+          {
+            "name": "Kule Vinç", // Kreynler -> Vinç? Kule Şeklinde Kreyn yerine bu daha iyi.
+            "description": "Yüksek binaların inşaatında ağır malzemeleri kaldırmak ve taşımak için kullanılan sabit vinç türüdür."
+          },
+          {
+            "name": "Kuvars",
+            "description": "Çeşitli türlerde kristalleşmiş silis, kumlama ve aşındırıcılarda kullanılan dişli kumdur; kuvars."
+          },
+          {
+            "name": "Kübik",
+            "description": "1. Küp şeklinde. 2. Kübizm akımına uygun olarak yapılmış; kübik."
+          },
+          {
+            "name": "Külah",
+            "description": "1. Silindirik veya çokgen prizma şeklindeki kulelerin veya minarelerin tepesini örten sivri çatıdır; külah. 2. Odun sobalarının veya şöminelerin üzerine, dumanın odaya yayılmasını önlemek ve bacadan çıkmasını sağlamak için yerleştirilen çoğunlukla yarım huni şeklindeki başlıktır; davlumbaz."
+          },
+          {
+            "name": "Küpeşte",
+            "description": "Elin kaymasını önlemek ve tüm uzunluğu boyunca devam etmek üzere korkulukların üzerine yerleştirilen profilli ahşap, metal veya plastik parçadır; küpeşte."
+          },
+          {
+            "name": "Küresel",
+            "description": "Küre şeklinde veya küre ile ilgili; küresel."
+          },
+          {
+            "name": "Küresel Üçgen",
+            "description": "Bir kürenin yüzeyinde belirtilen eğri kenarlı üçgendir; küresel üçgen."
+          },
+          {
+            "name": "Labirent",
+            "description": "1. Çok sayıda yol veya geçit nedeniyle çıkması kolay olmayan yerdir; labirent. 2. Çoğu Gotik kilisenin zemin kaplamalarında (Kudüs yolu) açık ve koyu renkli taşların ardışık sıralar halinde düzenlenmesiyle elde edilen geometrik süslemedir."
+          },
+          {
+            "name": "Lento",
+            "description": "Jambların üst kısımlarını örten elemanlara verilen addır. Lentolar, duvar boşluklarının üst kısmını oluşturur. Taş, demir profil veya betonarmeden yapılırlar. Kapı, pencere vb. boşlukların üstüne, üzerlerine gelen yükleri taşımak için yerleştirilen ahşap, çelik veya betonarme kirişlerdir; lento."
+          },
+          {
+            "name": "Levye",
+            "description": "Bir yükü yerinden oynatmak için kullanılan çelik çubuktur; levye."
+          },
+          {
+            "name": "Liman",
+            "description": "Gemilerin yük veya yolcu indirmek veya bindirmek için yanaştığı yerdir; liman."
+          },
+          {
+            "name": "Limonluk",
+            "description": "Merdiven boşluğu tarafındaki basamağın üst ve ön kısmında yapılan çıkıntıya limonluk denir. Ayağın merdiven boşluğuna kaymasını önlemek ve merdiven temizliği sırasında su vb. şeylerin yanlardan aşağıya dökülmesini engellemek için yapılır; burunluk."
+          },
+          {
+            "name": "Loder",
+            "description": "Ekskavatör ve yükleyici olarak kullanılan inşaat makineleridir; loder."
+          },
+          {
+            "name": "Lojman",
+            "description": "Bazı kuruluşlar tarafından personellerinin ikamet etmesi için inşa edilen düşük kira veya ücretsiz konutlardır; lojman."
+          },
+          {
+            "name": "Maddi Tazminat",
+            "description": "Yüklenicinin sözleşmeye göre işi tamamlamada gecikmesi durumunda mal sahibine günlük olarak ödemeyi kabul ettiği para miktarıdır; gecikme tazminatı."
+          },
+          {
+            "name": "Mafsal",
+            "description": "Eklem, mafsal; eklem."
+          },
+          {
+            "name": "Mahya",
+            "description": "1. Bir çatının iki eğimli yüzeyinin dışta 180 dereceden büyük bir açıyla birleştiği çizgidir; sırt."
+          },
+          {
+            "name": "Mahya Aşığı",
+            "description": "Kırma veya beşik çatılarda mahyaya yerleştirilen aşıktır; mahya aşığı."
+          },
+          {
+            "name": "Mahya Kiremidi",
+            "description": "Mahyayı örtmek için kullanılan özel şekilli kiremittir; mahya kiremidi."
+          },
+          {
+            "name": "Mahzen",
+            "description": "1. Yeraltı deposu. 2. Arşiv; mahzen, kasa."
+          },
+          {
+            "name": "Makadam",
+            "description": "Kırma taşın serilip silindirle sıkıştırıldığı yol kaplamasıdır; makadam."
+          },
+          {
+            "name": "Mal Sahibi Proje Yöneticisi",
+            "description": "Mal sahibinin proje ekibinin bir üyesi olarak bağımsız bir proje yönetim kuruluşu kullanmadığı ve tüm proje yönetimi hizmet ihtiyaçlarını kendi personeliyle karşıladığı bir proje yönetim yöntemidir; mal sahibi proje yöneticisi olarak."
+          },
+          {
+            "name": "Mal Sahibinin Güvencesi",
+            "description": "Mal sahibi tarafından projede beklenmedik değişikliklerden kaynaklanan kayıpları karşılamak için ayrılan para miktarıdır; mal sahibinin beklenmedik giderleri."
+          },
+          {
+            "name": "Malaksör",
+            "description": "Harç karıştırma makinesi (basit, küçük beton mikseri); harç karıştırıcısı."
+          },
+          {
+            "name": "Maliyet Kontrolü",
+            "description": "Yapı maliyetini, mal sahibi tarafından onaylanan prosedürler ve yetki çerçevesinde hesaplanan sınırlar içinde tutma işlevidir; maliyet kontrolü."
+          },
+          {
+            "name": "Maliyet yönetimi",
+            "description": "Belirlenen bütçe sınırları içinde kalmak amacıyla, planlama, tasarım ve yapım süreçlerindeki tüm veya kısmi maliyetlerin yönetimidir; maliyet yönetimi."
+          },
+          {
+            "name": "Malta",
+            "description": "Yumuşak doğal asfalt."
+          },
+          {
+            "name": "Marto",
+            "description": "Çekiç."
+          },
+          {
+            "name": "Mazgal",
+            "description": "1. Kale duvarlarında dışta dar, içte geniş olan dar açıklıktır; mazgal. 2. Bir kale parapetindeki mazgallar arasındaki her boşluk; mazgal."
+          },
+          {
+            "name": "Megalit",
+            "description": "Tarih öncesi çağlarda dikilmiş anıtsal taştır; megalit."
+          },
+          {
+            "name": "Megalitik",
+            "description": "Çok iri taşların birbiri üzerine harçsız olarak yerleştirilmesiyle yapılan ve insanoğlunun ilk mimari yapıtlarını meydana getiren ilkel yapıdır; megalitik."
+          },
+          {
+            "name": "Megalitik Mimarlık",
+            "description": "Megalitik yapıların oluşturduğu mimarlıktır; megalitik mimarlık."
+          },
+          {
+            "name": "Megaron",
+            "description": "1. Miken ve Girit saraylarında veya evlerinde, erkeklere ayrılmış büyük, dikdörtgen salon veya bölümdür. 2. Önünde giriş bölümü, içinde oda, odanın ortasında ocak bulunan ve tüm Yunan mimarisine örnek teşkil eden taştan yapılmış antik Yunan konutudur; megaron."
+          },
+          {
+            "name": "Mengene",
+            "description": "Kesilecek, işlenecek veya düzenlenecek bir nesneyi sıkıştırmak için kullanılan alettir; mengene."
+          },
+          {
+            "name": "Mesken",
+            "description": "Konut."
+          },
+          {
+            "name": "Meskun",
+            "description": "İnsanların oturduğu yapı veya bölgedir; meskun."
+          },
+          {
+            "name": "Metropol (Metropolis)",
+            "description": "Belli bir büyüklüğe ulaşmış, örneğin, nüfusu bir milyonu aşmış ve bir bölgenin en önemli kenti olarak nitelenebilen yerleşmedir; metropol."
+          },
+          {
+            "name": "Meydan",
+            "description": "Halkın toplandığı, çoğu binalarla çevrili, düz, açık ve geniş yerdir; meydan."
+          },
+          {
+            "name": "Mezbaha",
+            "description": "Kasaplık hayvanların kesildiği yerdir; mezbaha."
+          },
+          {
+            "name": "Mikrobeton",
+            "description": "İnce betondur. En iri tanesi 8-10 mm büyüklükte olan betondur."
+          },
+          {
+            "name": "Miksaj",
+            "description": "Karıştırma, harmanlama."
+          },
+          {
+            "name": "Molas",
+            "description": "Killi kireçli kumtaşıdır. Balçıklı kireç ve kum karışımı tortul oluşumdur."
+          },
+          {
+            "name": "Moloz",
+            "description": "Yapım ve yıkım artığı taş, tuğla harç vb. kalıntılardır; moloz."
+          },
+          {
+            "name": "Monüman",
+            "description": "Anıt, abide, dev yapıt."
+          },
+          {
+            "name": "Mozale",
+            "description": "Çok önemli bir kişinin gömülü olduğu anıt mezardır. Bu sözcük, Karya Kralı Mausolus'un (MÖ 4. yüzyıl) Bodrum'daki muhteşem mezarının (antik dünyanın yedi harikasından biri olarak kabul edilen) ardından yerleşmiştir; mozole."
+          },
+          {
+            "name": "Murç",
+            "description": "Taş yüzeylerin kaba tesviyesi, her türlü beton ve yığma işinin kırılması ve delik açılması için kullanılan sivri uçlu demir el aletidir; murç."
+          },
+          {
+            "name": "Mücavir",
+            "description": "Bitişik, komşu."
+          },
+          {
+            "name": "Mücavir Alan",
+            "description": "Belediye sınırlarına bitişik, şehrin gelecekteki gelişimi için gerekli görülen ve imar mevzuatı açısından belediyelerin kontrol ve sorumluluğu altına alınan alanlardır; komşu alan."
+          },
+          {
+            "name": "Müze",
+            "description": "Sanat ve bilim eserlerinin veya sanat ve bilim için yararlı şeylerin sergilenmek ve faydalanmak üzere saklandığı yerdir; müze."
+          },
+          {
+            "name": "Neopren",
+            "description": "Neopren (marka) conta olarak kullanılan sentetik bir elastomerdir; neopren."
+          },
+          {
+            "name": "Nivelman",
+            "description": "Yeryüzündeki çeşitli noktaların yüksekliklerini veya yükseklik farklarını belirli bir referansa göre ölçme işlemidir; nivelman."
+          },
+          {
+            "name": "Oda",
+            "description": "1. Bir binanın, özellikle bir evin, oturma, çalışma, uyuma gibi faaliyetler için kullanılan odalarının her biridir: oturma odası, yatak odası, yemek odası, depo. 2. İçinde profesyonelleri toplayan resmi bir birliktir. Örneğin, Mimarlar Odası; oda."
+          },
+          {
+            "name": "Ofşor",
+            "description": "Kıyı şeridinin deniz tarafı ve bu bölgedeki inşaat; açık deniz."
+          },
+          {
+            "name": "Onarım",
+            "description": "Onarma, restorasyon, tamir etme eylemidir; onarım."
+          },
+          {
+            "name": "Onaya Sunulan Evrak",
+            "description": "Sözleşme belgelerinde istenen bilgilerin (bilgi, belgeler) sunulmasıdır; sunum."
+          },
+          {
+            "name": "Otomasyon",
+            "description": "Çeşitli endüstriyel, idari ve bilimsel görevlerin insan müdahalesi olmadan veya çok az insan müdahalesiyle otomatik olarak yerine getirilmesidir; otomasyon."
+          },
+          {
+            "name": "Ölçek",
+            "description": "Bir harita veya çizimde görülen uzunluklar ile temsil ettikleri gerçek uzunluklar arasındaki orandır; ölçek."
+          },
+          {
+            "name": "Ömür Boyu Maliyet",
+            "description": "Bir bina veya tesisin yaşam döngüsü maliyeti, planlama, tasarım, inşaat, kullanım, bakım ve yıkım maliyetlerinin tamamının bugünkü değere indirgenmesidir; yaşam döngüsü maliyeti."
+          },
+          {
+            "name": "Ön Cephe",
+            "description": "Binanın yola bakan yüzüdür; ön cephe."
+          },
+          {
+            "name": "Özel Meslek İnsanları",
+            "description": "Mimar, mühendis, tasarımcı ve belirli konularda uzmanlığı olan çeşitli profesyonellerdir; danışmanlar, profesyonel tasarımcılar."
+          },
+          {
+            "name": "Pah",
+            "description": "Eğik veya pahlı kenardır; pah."
+          },
+          {
+            "name": "Panorama",
+            "description": "Yüksek bir yerden bakıldığında göze serilen geniş manzaradır; panorama."
+          },
+          {
+            "name": "Pasaj",
+            "description": "İki yanında dükkanlar bulunan üzeri örtülü yaya geçididir; pasaj."
+          },
+          {
+            "name": "Payanda",
+            "description": "Dikey bir taşıyıcıyı, örneğin bir duvarı güçlendirmek için eğik olarak verilen destektir; payanda."
+          },
+          {
+            "name": "Perforatör",
+            "description": "Matkap, perforatör. Metal, taş, ahşap, kağıt vb. malzemeleri herhangi bir amaçla herhangi bir şekilde delme; perforatör."
+          },
+          {
+            "name": "Pergola",
+            "description": "Rekreasyonel faaliyetler kapsamında açık alanlarda kurulan, çoğunlukla ahşap malzeme kullanılarak belirli boyutlarda yapılan, gölge sağlama gibi fonksiyonel özelliklerin yanı sıra estetik görünümler de dikkate alınarak oluşturulan yapı elemanıdır; pergola."
+          },
+          {
+            "name": "Peyzaj Mimarlığı",
+            "description": "İnsanların konforu, huzuru, sağlığı ve güvenliği için estetik ve bilimsel ilkeler çerçevesinde doğal ve kültürel kaynakları ve fiziksel çevreyi düzenleyen bilim dalıdır; peyzaj mimarlığı."
+          },
+          {
+            "name": "Planlama",
+            "description": "Plan yapma eylemidir; planlama."
+          },
+          {
+            "name": "Pozlar",
+            "description": "Mal sahibi tarafından muhasebeleştirme amacıyla proje maliyet kalemlerinin yazılı olarak tanımlanmasıdır; ödeme kalemleri."
+          },
+          {
+            "name": "Prefabrikasyon",
+            "description": "Hazır elemanlar veya bileşenlerle yapılan bina inşaatıdır; şantiye işini mümkün olduğunca fabrika işine dönüştürmek ve hazır yapı elemanlarını şantiyede birleştirerek inşa etmek; prefabrikasyon."
+          },
+          {
+            "name": "Prefabrike Yapı",
+            "description": "Atölyelerde prefabrike edilmiş ve birleştirildiğinde taşıyıcı bir sistem oluşturan betonarme veya öngerilmeli betonarme parçalardır; prefabrike yapı."
+          },
+          {
+            "name": "Prim",
+            "description": "Mal sahibi ile yüklenici arasındaki sözleşmede belirtilen temel hedeflerin aşılması durumunda mal sahibi tarafından yükleniciye ödenecek veya ödenen ödüldür; prim."
+          },
+          {
+            "name": "Profesyonel Tasarımcı",
+            "description": "Gerçekleştirilecek projeyi tasarlayan ve çizimlerini ve şartnamelerini hazırlayan profesyonel kişi veya kuruluşlardır. Bu profesyonel kişi bir mimar, mühendis veya profesyonel hizmet sunan bir kuruluş olabilir; profesyonel tasarımcı."
+          },
+          {
+            "name": "Program Yönetimi",
+            "description": "Birden fazla inşaat projesi olan bir mal sahibinin tüm projelerine standart teknik ve yönetim uzmanlığı sağlamayı amaçlayan hizmetlerdir; program yönetimi."
+          },
+          {
+            "name": "Proje Bütçesi",
+            "description": "Mal sahibinin projeyle ilgili tüm harcamalarını karşılamak üzere hesaplanan veya hedeflenen toplam tutardır. Bu tutar, arsa, yasal, danışmanlık giderleri, faiz (finansman) ve inşaat maliyeti dışındaki projeyle ilgili tüm diğer giderleri içerir; proje bütçesi."
+          },
+          {
+            "name": "Putrel",
+            "description": "Yapılarda taşıyıcı olarak kullanılan ince demir profildir; I-kiriş, aşık."
+          },
+          {
+            "name": "Pünez",
+            "description": "Raptiye."
+          },
+          {
+            "name": "Rabiç",
+            "description": "Bir çatkıya (metal depluvaye) geçirilmiş sıva; rabis."
+          },
+          {
+            "name": "Raf",
+            "description": "Üzerine öteberi koymak için duvara veya bir dolabın içine tutturulmuş genişçe ve uzunca ahşap, maden, cam ya da plastik levhadır; raf."
+          },
+          {
+            "name": "Rakor",
+            "description": "1. Tesisatta boruların döndürülmeden birleştirilmesini sağlayan iki parçalı bağlantı elemanıdır. 2. Her iki ucunda zıt yönlerde dişleri olan manşondur; rakor."
+          },
+          {
+            "name": "Raspa",
+            "description": "Kazıyıcı. Yüzeylerdeki istenmeyen katmanları kazımak için kullanılan geniş, yassı ağızlı demir el aletidir; raspa."
+          },
+          {
+            "name": "Restitüe Etmek",
+            "description": "1. Orijinal biçimine geri getirmek; eski biçimini yeniden inşa etmek. 2. (Bir eserin) eski halinin resmini çizmek; restitüe etmek."
+          },
+          {
+            "name": "Restorasyon",
+            "description": "Orijinalini değiştirmeden onarmaktır; restorasyon."
+          },
+          {
+            "name": "Rijit Üstyapılar",
+            "description": "Bağlayıcı malzeme olarak çimento kullanılan yol üstyapılarıdır. Orta ve ağır trafik yoğunluğuna sahip şehir içi yollarda ve otoyollarda kullanılan yüksek kaliteli bir kaplama türüdür; rijit üstyapılar."
+          },
+          {
+            "name": "Rekonstrüksiyon",
+            "description": "Bir şehrin tamamının, bir kısmının veya bir binanın orijinal biçiminde yeniden inşasıdır; rekonstrüksiyon."
+          },
+          {
+            "name": "Rövitalizasyon",
+            "description": "Canlandırma, yeniden canlandırma."
+          },
+          {
+            "name": "Rüstik",
+            "description": "1. Kırsal, rustik. 2. Dişli uçlu bir taşçı çekici. 3. Duvarları yarı yontulmuş veya taşın ilkel haline benzeyecek şekilde yontulmuş taşlarla kaplı (bina); rustik."
+          },
+          {
+            "name": "Sabit Kreyn",
+            "description": "Vinç ve kaldırma mekanizmasına sahiptir. Fabrikalar gibi sabit tesislerde kullanılır; sabit vinç."
+          },
+          {
+            "name": "Saçak",
+            "description": "1. Bir şeyin kenarı boyunca sarkan püsküller veya saçaklar; bir halının her iki ucundaki çözgü iplerinin kesilmesinden kalan uçlar. 2. Çatının binanın ötesine uzanan kısmıdır; saçak."
+          },
+          {
+            "name": "Saha Çizimleri",
+            "description": "Bu çizimler, yüklenici tarafından sözleşme belgelerine dayanılarak yeterli detayda hazırlanır ve amaçları, yüklenicinin söz konusu yapıyı tasarım hedefleri ve sözleşme koşullarına uygun olarak gerçekleştireceğini tasarımcıya göstermektir; atölye çizimleri."
+          },
+          {
+            "name": "Sahanlık",
+            "description": "Binalarda kapıların önünde, merdivenlerin başında veya ortasında geniş düz alandır; sahanlık."
+          },
+          {
+            "name": "Sanayi",
+            "description": "Hammaddeleri mamul maddeye dönüştüren iş ve faaliyetlerin tümüdür; sanayi."
+          },
+          {
+            "name": "Saray",
+            "description": "1. Devlet başkanlarının (veya Osmanlı İmparatorluğu'nda sultanın yakın akrabalarının) ikametine ayrılmış büyük konaktır. 2. Kamu işlerinin yürütüldüğü büyük binadır; saray."
+          },
+          {
+            "name": "Sathi Kaplamalar",
+            "description": "Yüzeye bağlayıcı olarak asfalt (bitüm) serilerek ve hemen ardından agrega serilip sıkıştırılarak yapılır. Karıştırma işlemi yoktur. Çok düşük trafik yoğunluğuna sahip yollarda uygulanabilir; yüzey işlemleri."
+          },
+          {
+            "name": "Sergah",
+            "description": "Ankara evlerindeki \"hayat\"a (veranda) verilen addır."
+          },
+          {
+            "name": "Sergen",
+            "description": "1. Raf. 2. Ahu ağacından yapılmış dokuma duvar paneli; raf."
+          },
+          {
+            "name": "Sıcak karışım Asfalt Kaplama",
+            "description": "İri ve ince agregaların bitümlü bağlayıcılarla (asfalt) özel bir asfalt hazırlama tesisinde karıştırılmasıyla hazırlanır ve sıcak olarak uygulanır. Yüksek kalitelidir ve ağır trafiğe sahip yollarda uygulanır; sıcak karışım asfalt kaplama."
+          },
+          {
+            "name": "Silindir Operatörü",
+            "description": "Belirli bir süre içinde silindirlerin günlük kontrollerini ve bakımını bağımsız olarak yapma ve zemin yapısına ve işin türüne uygun olarak silindirleri kullanarak toprak, stabilize malzeme, asfalt vb. üzerinde sıkıştırma işlemlerini ekonomik ve güvenli bir şekilde yapma bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Silo",
+            "description": "Granül ve toz halindeki ürünlerin ve malzemelerin (dökme çimento) depolandığı dikey silindirik kaptır; silo."
+          },
+          {
+            "name": "Simetri",
+            "description": "Simetri."
+          },
+          {
+            "name": "Simetri Ekseni",
+            "description": "Bir simetride karşılık gelen noktaların eşit uzaklıkta olduğu çizgidir; simetri ekseni."
+          },
+          {
+            "name": "Siporeks",
+            "description": "Otoklavlanmış havalandırılmış beton (AAC), hafif beton."
+          },
+          {
+            "name": "Sismik",
+            "description": "Depreme dayanıklı bina tasarımı; sismik."
+          },
+          {
+            "name": "Sit",
+            "description": "Özel bir fiziksel niteliğe sahip ve bir bütün oluşturan doğal veya insan yapımı bir çevre parçasıdır; sit."
+          },
+          {
+            "name": "Site",
+            "description": "1. Büyük şehir. 2. Bazı şehirlerin en eski bölümü. 3. Büyük bloklardan oluşan bir yerleşim birimi; kompleks, kampüs."
+          },
+          {
+            "name": "Soğuk Demirci",
+            "description": "Belirli bir süre içinde el aletleri ve makineler kullanarak demirin soğuk halde kesilmesi, şekillendirilmesi ve birleştirilmesi ile ilgili işlemleri bağımsız olarak yapma, mamul madde, demir doğrama ve çeşitli konstrüksiyonlar üretme bilgi ve becerisine sahip yetkili kişidir; demirci."
+          },
+          {
+            "name": "Sondaj Çamurcu",
+            "description": "Belirli bir süre içinde sondaj sıvısının hazırlanması, özelliklerinin belirlenmesi ve iyileştirilmesi, çamur ekipmanlarının montajı ve bakımı işlemlerini bağımsız olarak yapma bilgi ve becerisine sahip yetkili kişidir; sondaj çamuru teknisyeni."
+          },
+          {
+            "name": "Soyut",
+            "description": "Soyutlama yoluyla elde edilmiş, varlığı ancak nesnelerde gerçekleşen; somutun karşıtı, soyut; soyut."
+          },
+          {
+            "name": "Sözleşme Evrakı",
+            "description": "Yüklenici ile mal sahibi arasındaki sözleşmeyi oluşturan belgelerdir; sözleşme belgeleri."
+          },
+          {
+            "name": "Sözleşme Uygulaması",
+            "description": "Bilinen sistemlere, politikalara ve prosedürlere dayalı olarak sözleşme şartlarının yerine getirilmesi işlevidir; sözleşme yönetimi."
+          },
+          {
+            "name": "Stabilize",
+            "description": "1. Yol vb. inşaatları için sağlam bir temel oluşturmak üzere bağlayıcı karıştırılmış kum-çakıl veya kırmataş agregası. 2. Bu malzemelerin serilip sıkıştırıldığı zemin; stabilize malzeme."
+          },
+          {
+            "name": "Stadyum",
+            "description": "Futbol ve atletizm gibi oyunlar için düzenlenmiş, seyirci oturma yerleri olan alandır; stadyum. Bu ad, atletizm için düzenlenmiş Roma Stadyumlarının \"stadium\" olarak adlandırılan Roma milinin 1/8'ine eşit uzunluğundan gelmektedir."
+          },
+          {
+            "name": "Strüktür",
+            "description": "1. Bir yapının taşıyıcı kısmıdır. 2. İnsan eliyle yapılmış her şeydir; yapı."
+          },
+          {
+            "name": "Su Kemeri",
+            "description": "Üzerinde su kanalı bulunan, tuğla veya taştan yapılmış kemerli köprüdür; ilk olarak antik Romalılar tarafından uygulanmıştır; su kemeri."
+          },
+          {
+            "name": "Su Pompası Operatörü",
+            "description": "Belirli bir süre içinde su pompalarının ve pompa gruplarının montajını, çalıştırılmasını, bakımını ve kontrolünü yaparak suyun bir yerden başka bir yere transferini sağlama bilgi ve becerisine sahip yetkili kişidir."
+          },
+          {
+            "name": "Sürveyan",
+            "description": "Kontrolör, işveren adına şantiyede yapılan işleri ve kullanılan malzemeleri denetleyen teknikere verilen addır; kontrolör, denetçi."
+          },
+          {
+            "name": "Sütun",
+            "description": "1. Taştan yapılmış yük taşıyıcı direk, sütun. Geçmişte, sütun kelimesi çoğunlukla yığma, silindirik destekleri tanımlamak için kullanılmıştır. 2. Silindirik dikilitaş; sütun."
+          },
+          {
+            "name": "Şadırvan",
+            "description": "Ortasında yüksek bir yerden bol suyun şırıldayarak aktığı bir havuz veya etrafı musluklu bir duvarla çevrili su deposudur. Camilerin iç avlularında abdest almak için yapılan şadırvanların açık veya kapalı şekilleri vardır; çeşme."
+          },
+          {
+            "name": "Şahmerdan",
+            "description": "Sığ temeller için uygun olmayan zeminlerde kazıklı temel inşaatlarında, kazı sırasında kendini tutamayan zeminlerde kazıklı iksalarda ve gevşek zeminlerin sıkıştırılmasında kullanılan bir inşaat makinesidir; kazık çakma makinesi."
+          },
+          {
+            "name": "Şahniş (Şahnişin)",
+            "description": "Eski Türk evlerinde, sokağa veya avluya bakan odanın üç tarafı pencereli çıkıntısıdır; cumbalı pencere."
+          },
+          {
+            "name": "Şale",
+            "description": "İsviçreli çobanların kulübelerine veya dağ evlerine verilen addır. Bu ad, İsviçre evleri tarzında inşa edilmiş tüm kır evlerine verilir; dağ evi."
+          },
+          {
+            "name": "Şartnameler",
+            "description": "İşle ilgili malzeme, ekipman, sistem, gerekli işçi vb. niteliklerine ilişkin ayrıntılı olarak yapılan yazılı açıklamalardır; şartnameler."
+          },
+          {
+            "name": "Şömine",
+            "description": "Batı tarzı odun sobası, şömine, oturma odasında veya terasta duvar kenarında veya odanın ortasında yapılır; şömine."
+          },
+          {
+            "name": "Tasarım",
+            "description": "Tasarlama eylemi veya tasarlanmış biçim, konsept, tasarım; tasarım."
+          },
+          {
+            "name": "Tasarım Öncesi Evre",
+            "description": "Proje başladıktan sonra ve şematik tasarım aşamasından önce inşaat programının hazırlandığı planlama ve konsept (fizibilite) geliştirme aşamasıdır; ön tasarım aşaması."
+          },
+          {
+            "name": "Taşlık",
+            "description": "1. Taşlık yer. 2. Taş döşeli yer. 3. Eski evlerde sokak kapısının içi; taş döşeli alan."
+          },
+          {
+            "name": "Teklif",
+            "description": "Sözleşmede tanımlanan işi belirli bir fiyata yapma önerisidir; teklif."
+          },
+          {
+            "name": "Telafi Programı",
+            "description": "Bu program, ana programa kıyasla gecikmeyi kapatmak için gereken faaliyetleri ve özel çabaları gösterir. Burada, talep edilen her proje ekibi üyesinin faaliyetleri de gösterilebilir; telafi programı."
+          },
+          {
+            "name": "Teminat",
+            "description": "Sözleşmede üçüncü bir tarafça belirli bir süre için bir ürünün (veya işin) kalitesi, miktarı veya yeterli performansı ve yerine getirilmemesi durumunda verilen garantidir."
+          },
+          {
+            "name": "Orta Çağ Sanatı",
+            "description": "MS 500 ile 1400 yılları arasını kapsayan bu dönem, Roma İmparatorluğu'nun çöküşünün ardından ekonomik ve kültürel gerilemelerin yaşandığı bir zaman dilimidir. Orta Çağ sanat akımları, Anglo-Sakson sanatı veya Viking sanatı gibi ulusların veya kültürlerin kendilerine özgü sanatsal tarzlarından esinlenmiştir. Bu dönemde heykel, el yazmaları, vitray desenler, metal işlemeler ve mozaikler ön plana çıkmıştır. Hıristiyanlık inancının teolojik ve ruhani yönlerini yansıttığı için Ortodoks ve Roma Katolik ayinlerini takip edenler için Orta Çağ sanat akımlarının etkisi sürmüştür."
+          },
+          {
+            "name": "Rönesans",
+            "description": "1400 ile 1600 yılları arasında etkili olan Rönesans dönemi sanat akımları, resimde ve heykelcilikte ön plana çıkmıştır. İnsanın bağımsız ve kendine güvenen bir varlık olduğu düşüncesiyle doğaya ve bireyciliğe odaklanma baskındır. Antik Yunan ve Roma sanatının yeniden doğuşunu ifade eden Rönesans, sanat ve hümanizmi destekleyen Medici ailesi sayesinde İtalya'nın Floransa kentinde doruk noktasına ulaşmıştır. Rönesans sanatında kullanılan Bondone, Sfumato, Ön Kısaltma ve Chiaroscuro gibi teknikler, pek çok sanatçı tarafından benimsenmiştir. Leonardo da Vinci ve Michelangelo bu dönemin en ünlü sanatçılarındandır."
+          },
+          {
+            "name": "Maniyerizm",
+            "description": "1527 ile 1580 yılları arasında Rönesans sanatına tepki olarak doğan Maniyerizm akımında, orantı, denge ve ideal güzellik gibi Rönesans dönemi sanatının nitelikleri abartılmış ve genellikle asimetrik veya doğal olmayan bir şekilde zarif kompozisyonlara önem verilmiştir. \"Tarz\" ve \"Stil\" anlamına gelen İtalyanca Maniera kelimesinden türeyen bu akım, yapay özellikleriyle dikkat çekmektedir. Leonardo da Vinci, Raphael ve Michelangelo bu akımın önemli temsilcilerindendir."
+          },
+          {
+            "name": "Neoklasisizm",
+            "description": "1750 ile 1850 yılları arasında etkili olan Neoklasisizm, Barok'un aşırı dekoratif ve şatafatlı tarzına karşı ortaya çıkmıştır. Zarafet ve simetriye odaklanan bu akım, Antik Yunan ve Roma'nın farklı sanat türlerindeki stil, teori ve fikirlerini somutlaştırmıştır. Antonio Canova, Jacques Soufflot ve Thomas Jefferson bu akımın önemli temsilcilerindendir."
+          },
+          {
+            "name": "Romantizm",
+            "description": "1780 ile 1850 yılları arasında etkili olan Romantizm'de sanatçı doğrudan kendisine yönelmiştir. Duyguları, iç dünyası ve kendi gücü onun tek kaynağıdır. Sanatçının bireysel olarak kendini yorumlaması ve kişiliğinin duygusal yanını en iyi biçimde anlatabilmesi bu akımın başarısıdır. Fransisko Goya, Teodore Gericault ve Eugene Delacroix bu akımın önemli sanatçılarıdır."
+          },
+          {
+            "name": "Realizm",
+            "description": "1848 ile 1900 yılları arasında etkili olan Realizm, 1848 Fransız Devrimi'nden sonra ortaya çıkmış ve Romantizme karşıt olarak çağdaş insanlığa ve günlük yaşama odaklanmıştır. En önemli özelliği, gerçek olanı, gözle görülüp elle tutulanı tıpkı bir ayna gibi ifade etmesidir. Gustave Courbet bu akımın en etkili temsilcilerindendir."
+          },
+          {
+            "name": "Empresyonizm",
+            "description": "1865 ile 1895 yılları arasında Parisli ressamlar tarafından başlatılan Empresyonizm'de ışık tasviri en önemli özellik olarak bilinir. Tarihsel veya dini konular yerine günlük yaşam resmedilmiştir. Sanatçılar dış dünyaya ait olanı; ışığı, renkleri, tepkileri ve hüzünleri işlemekte ve yakalanan anlık konuları resmetmektedir. Claude Monet bu akımın en ünlü temsilcisidir."
+          },
+          {
+            "name": "Sembolizm",
+            "description": "1880 ile 1910 yılları arasında etkili olan Sembolizm, Naturalizm ve realizme tepki olarak doğmuş ve içsel duygu ve bireysel algıyı ifade etme arzusunu savunmuştur. Vincent van Gogh, Paul Gauguin ve Georges Seurat önemli temsilcilerindendir."
+          },
+          {
+            "name": "Fovizm",
+            "description": "1905 ile 1910 yılları arasında etkili olan Fovizm, yoğun renk, çizgi ve fırça işçiliğinin etkileyici kullanımı, cesur bir yüzey tasarımı ve düz kompozisyon duygusu ile karakterize edilmiştir. Saf renklerin coşkuyla kullanıldığı bir akımdır. Henry Matisse bu akımın etkili olmasında önemli bir rol oynamıştır ve Van Gogh'un eserleri de örnek teşkil etmiştir."
+          },
+          {
+            "name": "Dışavurumculuk",
+            "description": "1905 ile 1920 yılları arasında etkili olan Dışavurumculuk (Ekspresyonizm), duygusal deneyimleri ifade etmeye çalışan uluslararası bir akımdır. İnsanların, yerlerin ve nesnelerin çarpıtılmış veya abartılmış tasvirleri tipiktir. Edvard Munch, Egon Schiele ve Kandinsky önemli temsilcilerindendir."
+          },
+          {
+            "name": "Kübizm",
+            "description": "1908 ile 1920 yılları arasında etkili olan Kübizm'de nesneler soyutlanmış bir biçimde analiz edilir, parçalanır ve yeniden birleştirilir. Nesneler tek bir bakış açısından değil, daha geniş bir kapsamda ele alınır. Pablo Picasso ve Georges Braque tarafından 1907 yılında başlatılmıştır."
+          },
+          {
+            "name": "Fütürizm",
+            "description": "1909 ile 1918 yılları arasında etkili olan Fütürizm, insanın makineleştiğini savunan ve yeniliğe açık olmayı amaçlayan bir akımdır. Otomobiller, trenler ve hayvanlar sıkça resmedilmiştir. Kübizm ile estetik olarak bağlantılıdır. Umberto Boccioni bu akımın önemli temsilcisidir."
+          },
+          {
+            "name": "Sürrealizm",
+            "description": "1917 ile 1950 yılları arasında etkili olan Sürrealizm, yaratıcılığı ön plana çıkaran ve Dadaizm'den etkilenen bir akımdır. Aklın denetimi olmadan düşüncenin ortaya konmasını savunurlar ve yapıtlarında nesneleri alışılmamış biçimlerde betimlerler. Salvador Dali bu akımın en önemli temsilcisidir."
+          },
+          {
+            "name": "Pop Art",
+            "description": "1950 ile 1960 yılları arasında etkili olan Pop Art, popüler kültürün imgelerini kullanarak ironi yapmayı amaçlar. Tüketim ve kitle iletişim araçlarına odaklanmıştır. Andy Warhol ve Roy Lichtenstein önemli temsilcilerindendir."
+          },
+          {
+            "name": "Modern Sanat",
+            "description": "1970'den günümüze kadar devam eden Modern Sanat, sokak sanatı, postmodernizm, neo ekspresyonizm, feminist sanat ve dijital sanat gibi çeşitli ekolleri içerir. Geleneksel estetik algısına uymayan ve günlük olayları gösteren resimler yapılmıştır."
+          },
+          {
+            "name": "Lamine Ahşap (GLULAM)",
+            "description": "Masif ahşaptan daha yüksek mekanik özelliklere sahip bir endüstriyel ahşap ürünüdür. İnce ahşap tabakaların su geçirmez tutkallarla yapıştırılmasıyla elde edilir. Büyük açıklıklı yapılarda ve özel kiriş ve kolon üretiminde kullanılır."
+          },
+          {
+            "name": "Çapraz Lamine Ahşap (CLT)",
+            "description": "Strüktürel ahşap levhaların 90 derecelik açıyla çapraz biçimde yapıştırılmasıyla üretilen paneldir. 3-7 veya daha fazla katmandan oluşabilir. Duvar ve döşeme panellerinde önemli avantajlar sağlar ve betonarme döşeme plaklarına benzetilebilir."
+          },
+          {
+            "name": "Lamine Kaplama Ahşap (LVL)",
+            "description": "Yüksek kaliteli ahşaba olan talebin artmasıyla geliştirilen bir yapısal kompozit ahşap türüdür. Ahşap kaplamanın uzunluk boyunca paralel şekilde sıkıştırılmasıyla elde edilir. Büyük açıklıklarda ve kompozit I kirişlerin başlıklarında kullanılır."
+          },
+          {
+            "name": "Ahşap Beton Kompozit (TCC)",
+            "description": "Yapısal verimliliği artırmaya odaklanan bir teknolojidir. Ahşap ve betonun özelliklerini birleştirir. Genellikle döşeme ve çatı panelleri olarak kullanılır. Taşıyıcı elemanların kesitlerini azaltma ve katlar arasında yangın korunumu sağlama gibi avantajları vardır."
+          },
+          {
+            "name": "Ahşap Çerçeve Strüktür",
+            "description": "Geleneksel bir yapı tekniği olup, ahşap elemanların (kirişler, kolonlar, duvar panelleri) bir araya getirilmesiyle oluşturulur. Hafif, esnek ve depreme dayanıklı bir sistemdir. Tarihi yapılarda sıklıkla görülür."
+          },
+          {
+            "name": "Ahşap Kabuk Strüktür",
+            "description": "Özellikle büyük açıklıklı yapılar için kullanılan, ahşap elemanların eğrisel veya geometrik formlarda bir araya getirilerek oluşturduğu strüktür tipidir. Estetik ve hafiftir."
+          },
+          {
+            "name": "Ahşap Menteşeli Pencere",
+            "description": "Ahşap bir çerçeveye menteşelerle tutturulmuş bir veya daha fazla kanattan oluşan geleneksel pencere tipidir. Farklı açılma şekillerine (içe, dışa) ve farklı camlama seçeneklerine sahiptir. Estetik ve iyi yalıtım özellikleriyle bilinir."
+          },
+          {
+            "name": "Ahşap Sürme Pencere",
+            "description": "Kanatların yatay veya dikey raylar üzerinde kayarak açıldığı pencere tipidir. Özellikle alan tasarrufu sağlamak amacıyla tercih edilir. Farklı kanat sayılarına ve camlama seçeneklerine sahiptir."
+          },
+          {
+            "name": "Ahşap Vasistas Pencere",
+            "description": "Genellikle pencerenin üst kısmında bulunan ve içeriye doğru eğilerek açılan küçük pencere tipidir. Banyo, tuvalet gibi mekanlarda havalandırma amacıyla kullanılır."
+          },
+          {
+            "name": "Ahşap Giyotin Pencere",
+            "description": "Kanatların dikey olarak yukarı ve aşağı doğru hareket ettiği pencere tipidir. Özellikle tarihi binalarda sıklıkla görülür."
+          },
+          {
+            "name": "Ahşap Sabit Pencere",
+            "description": "Açılma özelliği olmayan, sadece ışık almak ve dışarıyı görmek amacıyla kullanılan pencere tipidir. Farklı şekil ve boyutlarda olabilir."
+          },
+          {
+            "name": "Ahşap Panel Kapı",
+            "description": "Ahşap bir çerçeve içine ahşap panellerin yerleştirilmesiyle oluşturulan geleneksel kapı tipidir. Farklı panel desenlerine ve ahşap türlerine sahiptir. İç ve dış mekanlarda kullanılabilir."
+          },
+          {
+            "name": "Ahşap Düz Kapı (Flush Kapı)",
+            "description": "Düz ve pürüzsüz bir yüzeye sahip olan modern kapı tipidir. Genellikle kaplama veya boya ile bitirilir. İç mekanlarda sıklıkla tercih edilir."
+          },
+          {
+            "name": "Ahşap Camlı Kapı",
+            "description": "Ahşap bir çerçeve içine cam panellerin yerleştirilmesiyle oluşturulan kapı tipidir. Işık geçirme özelliği sayesinde iç mekanlarda aydınlık bir ortam sağlar. Farklı cam desenlerine sahip olabilir."
+          },
+          {
+            "name": "Ahşap Sürme Kapı",
+            "description": "Yatay raylar üzerinde kayarak açılan kapı tipidir. Alan tasarrufu sağlamak amacıyla tercih edilir. Farklı kanat sayılarına ve tasarımlarına sahiptir."
+          },
+          {
+            "name": "Ahşap Katlanır Kapı (Akordiyon Kapı)",
+            "description": "Birbirine menteşelerle bağlı panellerin katlanarak açıldığı kapı tipidir. Özellikle geniş açıklıkların kapatılması veya mekanların bölünmesi amacıyla kullanılır."
+          },
+          {
+            "name": "MDF Lambri",
+            "description": "Orta yoğunluklu lif levhadan (MDF) üretilen lambri çeşididir. Ahşaba göre daha ekonomik bir alternatif sunar ve farklı renk ve desenlerde üretilebilir."
+          },
+          {
+            "name": "PVC Lambri",
+            "description": "Polivinil klorür (PVC) malzemeden üretilen lambri çeşididir. Özellikle nemli ortamlarda (banyo, tuvalet vb.) suya dayanıklılığı nedeniyle tercih edilir."
+          },
+          {
+            "name": "Kompozit Lambri",
+            "description": "Ahşap lifleri ve plastik reçinelerin karışımından elde edilen lambri çeşididir. Dayanıklı, suya ve böceklere karşı dirençlidir. İç ve dış mekanlarda kullanılabilir."
+          },
+          {
+            "name": "Metal Lambri",
+            "description": "Alüminyum veya çelik gibi metallerden üretilen lambri çeşididir. Modern ve endüstriyel bir görünüm sunar. Dayanıklı ve uzun ömürlüdür."
+          },
+          {
+            "name": "Kontraplak",
+            "description": "İnce ahşap katmanlarının birbirine dik olarak yapıştırılmasıyla elde edilen, mukavemeti yüksek levhadır."
+          },
+          {
+            "name": "MDF (Orta Yoğunluklu Lif Levha)",
+            "description": "Ahşap liflerinin reçine ile preslenmesiyle üretilen, mobilya yapımında yaygın olarak kullanılan levhadır."
+          },
+          {
+            "name": "Alüminyum",
+            "description": "Hafif ve korozyona dayanıklı bir metaldir; pencere çerçevelerinde ve mobilyalarda kullanılır."
+          },
+          {
+            "name": "Bakır",
+            "description": "Dekoratif elemanlarda ve sıhhi tesisat armatürlerinde kullanılan, sıcak ve çekici görünümlü bir metaldir."
+          },
+          {
+            "name": "Pirinç",
+            "description": "Donanımlarda ve dekoratif aksanlarda kullanılan, dayanıklı ve altın rengi ışıltılı bir metaldir."
+          },
+          {
+            "name": "Düz Cam",
+            "description": "Pencerelerde ve aynalarda kullanılan standart cam türüdür."
+          },
+          {
+            "name": "Temperli Cam",
+            "description": "Isıl işlemle güçlendirilmiş, kırıldığında küçük ve keskin olmayan parçalara ayrılan güvenli cam türüdür."
+          },
+          {
+            "name": "Lamine Cam",
+            "description": "İki veya daha fazla cam tabakasının arasına polimer bir tabaka yerleştirilerek oluşturulan, güvenlik ve ses yalıtımı sağlayan cam türüdür."
+          },
+          {
+            "name": "Seramik Karo",
+            "description": "Kil ve diğer inorganik malzemelerin pişirilmesiyle elde edilen, zemin ve duvar kaplamalarında kullanılan dayanıklı malzemedir."
+          },
+          {
+            "name": "Porselen Karo",
+            "description": "Yüksek yoğunluklu ve düşük su emme özelliğine sahip seramik karo türüdür."
+          },
+          {
+            "name": "Mermer",
+            "description": "Lüks görünümlü, metamorfik bir taştır; tezgah ve döşemelerde kullanılır."
+          },
+          {
+            "name": "Granit",
+            "description": "Dayanıklı ve ısıya karşı dirençli, magmatik bir taştır; mutfak tezgahlarında tercih edilir."
+          },
+          {
+            "name": "Traverten",
+            "description": "Gözenekli yapılı, doğal tonlara sahip bir taştır; duvar kaplamalarında ve döşemelerde kullanılır."
+          },
+          {
+            "name": "Kayrak",
+            "description": "Doğal ve rustik görünümlü, katmanlı bir taştır; döşeme ve duvar kaplamalarında kullanılır."
+          },
+          {
+            "name": "Yün",
+            "description": "Sıcak ve esnek doğal bir liftir; halı ve döşemeliklerde kullanılır."
+          },
+          {
+            "name": "İpek",
+            "description": "Lüks ve zarif doğal bir liftir; dekoratif kumaşlarda kullanılır."
+          },
+          {
+            "name": "Su Bazlı Boya",
+            "description": "Düşük VOC içerikli, kolay uygulanabilen boya türüdür; duvar ve tavanlarda kullanılır."
+          },
+          {
+            "name": "Yağ Bazlı Boya",
+            "description": "Dayanıklı bir boya türüdür; ahşap ve kapı gibi yüzeylerde tercih edilir."
+          },
+          {
+            "name": "Akrilik Boya",
+            "description": "Çok yönlü, su bazlı bir boya türüdür; çeşitli yüzeylerde kullanılabilir."
+          },
+          {
+            "name": "Kauçuk",
+            "description": "Dayanıklı ve kaymaz sentetik bir malzemedir; döşeme ve paspaslarda kullanılır."
+          },
+          {
+            "name": "Bambu",
+            "description": "Hızla yenilenebilir, sürdürülebilir bir malzemedir; döşeme ve mobilyalarda kullanılır."
+          },
+          {
+            "name": "Kurşun Kalemler",
+            "description": "Eskiz ve teknik çizimlerde kullanılan, farklı sertlik derecelerine sahip çizim araçlarıdır."
+          },
+          {
+            "name": "Silgiler",
+            "description": "Çizimlerdeki hataları düzeltmek için kullanılan çeşitli tiplerde araçlardır."
+          },
+          {
+            "name": "Cetveller",
+            "description": "Düz çizgiler çizmek ve ölçü almak için kullanılan farklı uzunluk ve malzemelerdeki araçlardır."
+          },
+          {
+            "name": "Gönyeler",
+            "description": "Dik açılar ve belirli açılarda çizgiler çizmek için kullanılan üçgen şekilli cetvellerdir."
+          },
+          {
+            "name": "Pergel",
+            "description": "Daireler ve yaylar çizmek için kullanılan iki kollu çizim aracıdır."
+          },
+          {
+            "name": "Rapido Kalemler",
+            "description": "Teknik çizimlerde sabit çizgi kalınlıkları oluşturmak için kullanılan hassas mürekkep kalemlerdir."
+          },
+          {
+            "name": "Teknik Çizim Kalemleri",
+            "description": "Hassas çizgi çalışmaları için kullanılan, farklı uç kalınlıklarına sahip mürekkep kalemlerdir."
+          },
+          {
+            "name": "T-Cetveli",
+            "description": "Çizim masası üzerinde yatay ve dikey çizgiler çizmek için kullanılan, baş ve cetvel kısmından oluşan araçtır."
+          },
+          {
+            "name": "Çizim Masası",
+            "description": "Büyük formatlı kağıtlar üzerinde rahatça çalışmaya olanak tanıyan, genellikle eğimli yüzeye sahip masadır."
+          },
+          {
+            "name": "Mimari Şablonlar",
+            "description": "Standart mimari sembolleri hızlıca çizmek için kullanılan plastik veya metal levhalardır."
+          },
+          {
+            "name": "Fransız Eğrileri",
+            "description": "Düzgün, dairesel olmayan eğriler çizmek için farklı kavislerdeki kenarlara sahip araçlardır."
+          },
+          {
+            "name": "Eğri Cetveller",
+            "description": "İstenilen eğri şeklini alabilen ve sabitlemeye yarayan esnek cetvellerdir."
+          },
+          {
+            "name": "Maket Bıçağı",
+            "description": "Model yapımında malzemeleri hassas bir şekilde kesmek için kullanılan keskin uçlu bıçaktır."
+          },
+          {
+            "name": "Kesim Altlığı",
+            "description": "Maket bıçağıyla çalışırken yüzeyi koruyan ve kaymayı önleyen özel yüzeydir."
+          },
+          {
+            "name": "Kretuar",
+            "description": "Çizimleri düzeltmek, pürüzsüzleştirmek veya görüntüleri aktarmak için kullanılan araçtır."
+          },
+          {
+            "name": "CAD Yazılımları",
+            "description": "Teknik çizimler ve 3B modeller oluşturmak için kullanılan dijital tasarım yazılımlarıdır (örneğin AutoCAD, Revit)."
+          },
+          {
+            "name": "3B Modelleme Yazılımları",
+            "description": "Tasarımların görselleştirilmesi için kullanılan dijital modelleme yazılımlarıdır (örneğin SketchUp, 3ds Max)."
+          },
+          {
+            "name": "Grafik Tabletler",
+            "description": "Dijital ortamda eskiz yapmak ve çizim oluşturmak için kullanılan hassas giriş cihazlarıdır."
+          },
+          {
+            "name": "Mobil Vinç",
+            "description": "Şantiye içinde farklı noktalara hareket ettirilebilen ve ağır yükleri kaldırmak için kullanılan vinç türüdür."
+          },
+          {
+            "name": "Forklift",
+            "description": "Paletler üzerindeki malzemeleri şantiye içinde yatay olarak taşımak için kullanılan motorlu araçtır."
+          },
+          {
+            "name": "Beton Mikseri",
+            "description": "İnşaat alanında beton karıştırmak için kullanılan makinedir."
+          },
+          {
+            "name": "Kırıcı (Hilti)",
+            "description": "Beton, taş veya tuğla gibi sert malzemeleri kırmak için kullanılan pnömatik veya hidrolik el aletidir."
+          },
+          {
+            "name": "Zımpara Makinesi",
+            "description": "Ahşap, alçıpan gibi yüzeyleri pürüzsüzleştirmek için kullanılan elektrikli alettir."
+          },
+          {
+            "name": "Taşlama Makinesi",
+            "description": "Taş veya beton yüzeyleri düzeltmek veya parlatmak için kullanılan elektrikli alettir."
+          },
+          {
+            "name": "Boya Pompası",
+            "description": "Boyayı yüzeylere püskürterek uygulamak için kullanılan ekipmandır."
+          },
+          {
+            "name": "Su Terazisi",
+            "description": "Yüzeylerin yatay veya dikey düzlemde olup olmadığını kontrol etmek için kullanılan alettir."
+          },
+          {
+            "name": "Lazer Metre",
+            "description": "Mesafeleri lazer ışını kullanarak hassas bir şekilde ölçmek için kullanılan cihazdır."
+          },
+          {
+            "name": "Baret",
+            "description": "Şantiyede düşen nesnelerden kaynaklanan kafa yaralanmalarını önlemek için kullanılan koruyucu ekipmandır."
+          },
+          {
+            "name": "Güvenlik Gözlüğü",
+            "description": "Şantiyede çalışırken gözleri toz, kıvılcım ve diğer tehlikelerden korumak için kullanılan ekipmandır."
+          },
+          {
+            "name": "İş Eldivenleri",
+            "description": "Şantiyede çalışırken elleri kesilmelere, sürtünmelere ve diğer yaralanmalara karşı korumak için kullanılan ekipmandır."
+          },
+          {
+            "name": "Güvenlik Ayakkabıları",
+            "description": "Şantiyede çalışırken ayakları düşen nesnelerden ve diğer tehlikelerden korumak için kullanılan özel ayakkabılardır."
+          },
+          {
+            "name": "Toz Maskesi",
+            "description": "Şantiyede çalışırken solunum yollarını toz ve diğer zararlı partiküllerden korumak için kullanılan maskedir."
+          },
+          {
+            "name": "Kulak Koruyucuları",
+            "description": "Şantiyedeki yüksek gürültü seviyesinden kaynaklanan işitme kaybını önlemek için kullanılan ekipmandır."
+          },
+          {
+            "name": "Kapı",
+            "description": "Mekanlara giriş ve çıkışı kontrol etmek için kullanılan hareketli yapı elemanıdır."
+          },
+          {
+            "name": "Pencere",
+            "description": "Mekanlara doğal ışık ve havalandırma sağlayan, dışarıyla görsel bağlantı kuran yapı elemanıdır."
+          },
+          {
+            "name": "Çatı İzolasyonu",
+            "description": "Çatıyı ısı ve su kaybına karşı yalıtan malzemedir."
+          },
+          {
+            "name": "Duvar İzolasyonu",
+            "description": "Duvarları ısı ve ses geçişine karşı yalıtan malzemedir."
+          },
+          {
+            "name": "Temel İzolasyonu",
+            "description": "Temeli nem ve sudan koruyan yalıtım katmanıdır."
+          },
+          {
+            "name": "Baca",
+            "description": "Duman ve gazları dışarı atmak için kullanılan düşey kanaldır."
+          },
+          {
+            "name": "Teras",
+            "description": "Binanın çatısında veya üst katında bulunan, üzeri açık ve genellikle çevrili düz alandır."
+          },
+          {
+            "name": "Asansör",
+            "description": "İnsanları veya yükleri dikey olarak taşımak için kullanılan mekanik sistemdir."
+          },
+          {
+            "name": "Bauhaus",
+            "description": "İşlevsellik, sadelik, sanat, zanaat ve teknolojinin entegrasyonu; geometrik formlar, düz çatılar, açık planlar, modern malzemeler. Modern mimari ve iç tasarım üzerinde kalıcı etki."
+          },
+          {
+            "name": "Art Deco",
+            "description": "Zenginlik, geometrik desenler, lüks malzemeler; simetri, cesur renkler, stilize motifler. İç dekorasyon, mobilya ve mimari süsleme üzerinde etkili."
+          },
+          {
+            "name": "Modernizm",
+            "description": "İşlevsellik, rasyonel tasarım, tarihi stillerin reddi; sadelik, temiz çizgiler, açık mekanlar, malzemelerin dürüst ifadesi. 20. yüzyıl mimarisi ve iç tasarımını derinden etkiledi."
+          },
+  {
+    "name": "Postmodernizm",
+    "description": "Modernizme tepki; eklektizm, ironi, süsleme, tarihi referanslar, cesur renkler, alışılmadık formlar. Daha ifadeci ve az dogmatik bir tasarım anlayışı getirdi."
+  },
+  {
+    "name": "Ritim",
+    "description": "Elemanların tekrarıyla mekanda görsel hareket ve akış yaratır, ilgi ve dinamizm katar."
+  },
+  {
+    "name": "Birlik ve Uyum",
+    "description": "Mekandaki tüm elemanların tutarlı bir şekilde bir araya gelerek bütünsel ve ahenkli bir görünüm oluşturmasıdır."
+  }
+]
+      // --- JSON VERİSİ SONU ---
+
+        // HTML elementleri
+       const searchInput = document.getElementById('search-input');
+                const termListDiv = document.getElementById('term-list');
+                const clearSearchButton = document.getElementById('clear-search');
+                const aboutLink = document.getElementById('about-link');
+                const aboutContent = document.getElementById('about-content');
+                const backButtonAbout = document.getElementById('back-button-about');
+                const searchArea = document.getElementById('search-area');
+                const mainTitle = document.querySelector('h1');
+                const mainContent = document.getElementById('main-content');
+                const favoritesLink = document.getElementById('favorites-link');
+                const favoritesContent = document.getElementById('favorites-content');
+                const favoriteTermListDiv = document.getElementById('favorite-term-list');
+                const favoritesEmptyMessage = document.getElementById('favorites-empty-message');
+                const backButtonFav = document.getElementById('back-button-fav');
+                const suggestLink = document.getElementById('suggest-link');
+                // --- YENİ: Kaynaklar için referanslar ---
+                const referencesLink = document.getElementById('references-link');
+                const referencesContent = document.getElementById('references-content');
+                const backButtonRef = document.getElementById('back-button-ref');
+                const referencesTextContent = document.getElementById('references-text-content');
+
+
+                // --- Favori Yönetimi Fonksiyonları ---
+                const FAVORITES_KEY = 'termFavorites';
+                function getFavorites() { try { const favoritesJson = localStorage.getItem(FAVORITES_KEY); return favoritesJson ? JSON.parse(favoritesJson) : []; } catch (e) { console.error("Favoriler okunamadı:", e); return []; } }
+                function addFavorite(termName) { try { const favorites = getFavorites(); if (!favorites.includes(termName)) { favorites.push(termName); localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } } catch (e) { console.error("Favori eklenemedi:", e); } }
+                function removeFavorite(termName) { try { let favorites = getFavorites(); favorites = favorites.filter(name => name !== termName); localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites)); } catch (e) { console.error("Favori silinemedi:", e); } }
+                function isFavorite(termName) { try { return getFavorites().includes(termName); } catch (e) { return false; } }
+
+
+                // Vurgulama Fonksiyonu
+                function highlightText(text, query) { if (!query) { return document.createTextNode(text); } try { const lowerText = text.toLowerCase(); const lowerQuery = query.toLowerCase(); const fragment = document.createDocumentFragment(); let lastIndex = 0; let index = lowerText.indexOf(lowerQuery, lastIndex); if (index === -1) { fragment.appendChild(document.createTextNode(text)); return fragment; } while (index !== -1) { if (index > lastIndex) { fragment.appendChild(document.createTextNode(text.substring(lastIndex, index))); } const highlightSpan = document.createElement('span'); highlightSpan.className = 'highlight'; highlightSpan.textContent = text.substring(index, index + query.length); fragment.appendChild(highlightSpan); lastIndex = index + query.length; index = lowerText.indexOf(lowerQuery, lastIndex); } if (lastIndex < text.length) { fragment.appendChild(document.createTextNode(text.substring(lastIndex))); } return fragment; } catch (e) { console.error("Vurgulama hatası:", e); return document.createTextNode(text); } }
+
+                // Terimleri belirli bir div içinde gösteren fonksiyon
+                function displayTerms(targetDiv, termsToDisplay, currentQuery) {
+                    targetDiv.innerHTML = '';
+                    if(targetDiv.id === 'favorite-term-list' && favoritesEmptyMessage) favoritesEmptyMessage.style.display = 'none';
+
+                    if (termsToDisplay && termsToDisplay.length > 0) {
+                        termsToDisplay.sort((a, b) => a.name.localeCompare(b.name, 'tr', { sensitivity: 'base' }));
+                        termsToDisplay.forEach(term => {
+                           try {
+                                const entryDiv = document.createElement('div');
+                                entryDiv.className = 'term-entry';
+
+                                const nameHeading = document.createElement('div');
+                                nameHeading.className = 'term-name';
+
+                                const textContentSpan = document.createElement('span');
+                                textContentSpan.style.flexGrow = "1";
+                                textContentSpan.style.marginRight = "8px";
+                                textContentSpan.appendChild(highlightText(term.name, currentQuery));
+                                nameHeading.appendChild(textContentSpan);
+
+                                const favoriteIcon = document.createElement('span');
+                                favoriteIcon.className = 'favorite-icon';
+                                const isFav = isFavorite(term.name);
+                                favoriteIcon.textContent = isFav ? '★' : '☆';
+                                if (isFav) favoriteIcon.classList.add('active');
+                                favoriteIcon.title = isFav ? 'Favorilerden çıkar' : 'Favorilere ekle';
+
+                                favoriteIcon.addEventListener('click', (event) => {
+                                    event.stopPropagation();
+                                    const termName = term.name;
+                                    if (isFavorite(termName)) { removeFavorite(termName); favoriteIcon.textContent = '☆'; favoriteIcon.classList.remove('active'); favoriteIcon.title = 'Favorilere ekle'; }
+                                    else { addFavorite(termName); favoriteIcon.textContent = '★'; favoriteIcon.classList.add('active'); favoriteIcon.title = 'Favorilerden çıkar'; }
+                                    if (favoritesContent && favoritesContent.style.display === 'block') { displayFavoriteTerms(); }
+                                });
+                                nameHeading.appendChild(favoriteIcon);
+
+                                const descriptionParagraph = document.createElement('p');
+                                descriptionParagraph.className = 'term-description';
+                                descriptionParagraph.appendChild(highlightText(term.description, currentQuery));
+
+                                entryDiv.appendChild(nameHeading);
+                                entryDiv.appendChild(descriptionParagraph);
+                                targetDiv.appendChild(entryDiv);
+                       } catch (e) { console.error("Terim gösterilirken hata:", term.name, e); }
+                    });
+                } else {
+                    if(targetDiv.id === 'favorite-term-list') {
+                        targetDiv.innerHTML = '';
+                        if (favoritesEmptyMessage) favoritesEmptyMessage.style.display = 'block';
+                    } else {
+                        const message = currentQuery ? 'Aradığınız kriterlere uygun terim bulunamadı.' : 'Gösterilecek terim yok.';
+                        targetDiv.innerHTML = `<div class="empty-message">${message}</div>`;
+                    }
+                }
+            }
+
+            // Favori Terimleri Göster Fonksiyonu
+            function displayFavoriteTerms() { try { const favoriteNames = getFavorites(); const favoriteTerms = termsData.filter(term => favoriteNames.includes(term.name)); displayTerms(favoriteTermListDiv, favoriteTerms, ''); } catch(e) { console.error("Favoriler gösterilirken hata:", e); if(favoriteTermListDiv) favoriteTermListDiv.innerHTML = `<div class="empty-message">Favoriler yüklenirken bir hata oluştu.</div>`; if(favoritesEmptyMessage) favoritesEmptyMessage.style.display = 'none'; } }
+
+            // Arama input'u değiştiğinde
+            function handleSearchInput() { try { const query = searchInput.value.toLowerCase().trim(); if(clearSearchButton) clearSearchButton.style.display = query ? 'block' : 'none'; const filteredTerms = termsData.filter(term => term.name.toLowerCase().includes(query) || term.description.toLowerCase().includes(query) ); displayTerms(termListDiv, filteredTerms, query); } catch(e) { console.error("Arama sırasında hata:", e); if(termListDiv) termListDiv.innerHTML = `<div class="empty-message">Arama sırasında bir hata oluştu.</div>`; } }
+
+            // Bölümler arası geçiş fonksiyonları
+            function showMainContent() { if(aboutContent) aboutContent.style.display = 'none'; if(favoritesContent) favoritesContent.style.display = 'none'; if(referencesContent) referencesContent.style.display = 'none'; if(mainContent) mainContent.style.display = 'block'; handleSearchInput(); }
+            function showAboutContent() { if(mainContent) mainContent.style.display = 'none'; if(favoritesContent) favoritesContent.style.display = 'none'; if(referencesContent) referencesContent.style.display = 'none'; if(aboutContent) aboutContent.style.display = 'block'; }
+            function showFavoritesContent() { if(mainContent) mainContent.style.display = 'none'; if(aboutContent) aboutContent.style.display = 'none'; if(referencesContent) referencesContent.style.display = 'none'; if(favoritesContent) favoritesContent.style.display = 'block'; displayFavoriteTerms(); }
+            // --- YENİ: Kaynaklar bölümünü gösteren fonksiyon ---
+            function showReferencesContent() { if(mainContent) mainContent.style.display = 'none'; if(aboutContent) aboutContent.style.display = 'none'; if(favoritesContent) favoritesContent.style.display = 'none'; if(referencesContent) referencesContent.style.display = 'block'; /* İçerik zaten HTML'de */ }
+
+
+            // --- Event Listener'lar ---
+            // Hata kontrolü için try-catch eklenebilir ama genellikle listener eklemede sorun olmaz
+             // --- Event Listener'lar ---
+            if (aboutLink) aboutLink.addEventListener('click', (event) => { event.preventDefault(); showAboutContent(); });
+            if (backButtonAbout) backButtonAbout.addEventListener('click', showMainContent);
+            if (favoritesLink) favoritesLink.addEventListener('click', (event) => { event.preventDefault(); showFavoritesContent(); });
+            if (backButtonFav) backButtonFav.addEventListener('click', showMainContent);
+
+            // --- DÜZELTİLMİŞ suggestLink Listener'ı ---
+            if (suggestLink) suggestLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                const recipientEmail = "icmsozluk@gmail.com"; // E-posta adresi (Kendinizinkiyle değiştirin!)
+                const emailSubject = "İç Mimarlık Sözlüğü - Terim Önerisi";
+                const emailBody = "Merhaba,\n\nSözlüğe eklenmesini önerdiğim terim:\n\n[Buraya Terimi Yazın]\n\nTeşekkürler.";
+
+                // ---->>> DOĞRU mailtoLink OLUŞTURMA SATIRI: <<<----
+                const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+                console.log("Oluşturulan Mailto Linki:", mailtoLink); // Konsola yazdırma (test için)
+                try {
+                   window.location.href = mailtoLink; // E-posta istemcisini açmayı dene
+                } catch(e) {
+                   console.error("Mailto linki açılırken hata:", e);
+                   alert("E-posta uygulaması açılamadı. Lütfen cihazınızda varsayılan bir e-posta uygulaması olduğundan emin olun."); // Hata mesajı
+                }
+            });
+            // --- YENİ: Kaynaklar linki için listener ---
+            if (referencesLink) referencesLink.addEventListener('click', (event) => { event.preventDefault(); showReferencesContent(); });
+            if (backButtonRef) backButtonRef.addEventListener('click', showMainContent);
+
+            if (searchInput) searchInput.addEventListener('input', handleSearchInput);
+            if (clearSearchButton) clearSearchButton.addEventListener('click', () => { searchInput.value = ''; handleSearchInput(); searchInput.focus(); });
+
+            // --- Sayfa ilk yüklendiğinde ---
+            showMainContent();
+            if (clearSearchButton) clearSearchButton.style.display = 'none';
+
+        } catch (e) { // DOMContentLoaded için genel hata yakalama
+            alert('Sayfa yüklenirken kritik bir hata oluştu: ' + e.message);
+            console.error("Genel Hata:", e);
+            const termListDiv = document.getElementById('term-list');
+            if (termListDiv) termListDiv.innerHTML = '<div class="empty-message">İçerik yüklenemedi.</div>';
+        }
+        });
+    </script>
+
+</body>
+</html>
